@@ -8,8 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		BE3D36271D7880BD00729A4C /* Logician.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D361D1D7880BC00729A4C /* Logician.framework */; };
-		BE3D362C1D7880BD00729A4C /* LogicianTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D362B1D7880BD00729A4C /* LogicianTests.swift */; };
 		BE3D362E1D7880BD00729A4C /* Logician.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3D36201D7880BC00729A4C /* Logician.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BE3D36381D7881E200729A4C /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36371D7881E200729A4C /* Context.swift */; };
+		BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36391D78820300729A4C /* ContextTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,8 +28,9 @@
 		BE3D36201D7880BC00729A4C /* Logician.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logician.h; sourceTree = "<group>"; };
 		BE3D36211D7880BC00729A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE3D36261D7880BD00729A4C /* LogicianTests-macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LogicianTests-macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BE3D362B1D7880BD00729A4C /* LogicianTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicianTests.swift; sourceTree = "<group>"; };
 		BE3D362D1D7880BD00729A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BE3D36371D7881E200729A4C /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
+		BE3D36391D78820300729A4C /* ContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 		BE3D361F1D7880BC00729A4C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BE3D36371D7881E200729A4C /* Context.swift */,
 				BE3D36201D7880BC00729A4C /* Logician.h */,
 				BE3D36211D7880BC00729A4C /* Info.plist */,
 			);
@@ -80,7 +83,7 @@
 		BE3D362A1D7880BD00729A4C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				BE3D362B1D7880BD00729A4C /* LogicianTests.swift */,
+				BE3D36391D78820300729A4C /* ContextTests.swift */,
 				BE3D362D1D7880BD00729A4C /* Info.plist */,
 			);
 			path = Tests;
@@ -148,6 +151,7 @@
 				TargetAttributes = {
 					BE3D361C1D7880BC00729A4C = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
 					BE3D36251D7880BD00729A4C = {
@@ -196,6 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE3D36381D7881E200729A4C /* Context.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +208,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BE3D362C1D7880BD00729A4C /* LogicianTests.swift in Sources */,
+				BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,6 +322,7 @@
 		BE3D36321D7880BD00729A4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -330,6 +336,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.diephouse.matt.Logician;
 				PRODUCT_NAME = Logician;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -337,6 +344,7 @@
 		BE3D36331D7880BD00729A4C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -357,6 +365,7 @@
 		BE3D36351D7880BD00729A4C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
@@ -369,6 +378,7 @@
 		BE3D36361D7880BD00729A4C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
