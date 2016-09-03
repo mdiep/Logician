@@ -28,7 +28,7 @@ internal struct Context<Key: Hashable, Value> {
         }
     }
     
-    mutating func merge(_ key1: Key, _ key2: Key, combine: (Value?, Value?) throws -> Value) rethrows {
+    mutating func merge(_ key1: Key, _ key2: Key, combine: (Value?, Value?) throws -> Value?) rethrows {
         let node1 = values[key1]
         let node2 = values[key2]
         let newValue = try combine(node1?.value, node2?.value)

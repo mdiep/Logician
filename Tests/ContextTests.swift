@@ -68,10 +68,10 @@ class ContextTests: XCTestCase {
         XCTAssertEqual(context[key1], 4)
         XCTAssertEqual(context[key2], 4)
         
-        context.merge(key2, key3) { _, _ in 5 }
-        XCTAssertEqual(context[key1], 5)
-        XCTAssertEqual(context[key2], 5)
-        XCTAssertEqual(context[key3], 5)
+        context.merge(key2, key3) { _, _ in nil }
+        XCTAssertNil(context[key1])
+        XCTAssertNil(context[key2])
+        XCTAssertNil(context[key3])
         
         context[key1] = 6
         XCTAssertEqual(context[key1], 6)
