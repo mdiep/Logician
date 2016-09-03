@@ -22,5 +22,6 @@ class VariableTests: XCTestCase {
     func testTypeErasure() {
         let variable = Variable<Int>()
         XCTAssertTrue(variable.erased == variable)
+        XCTAssertEqual(variable.erased, variable.erased)
     }
 }

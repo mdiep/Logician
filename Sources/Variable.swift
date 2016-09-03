@@ -18,21 +18,44 @@ public struct Variable<Value> {
     
     /// Create a new variable.
     public init() {
-        self.init(identity: Identity())
-    }
-    
-    /// Create a variable with an existing `Identity`.
-    private init(identity: Identity) {
-        self.identity = identity
+        identity = Identity()
     }
     
     /// A type-erased version of the variable.
-    internal var erased: Variable<Any> {
-        return Variable<Any>(identity: identity)
+    internal var erased: AnyVariable {
+        return AnyVariable(identity: identity)
     }
 }
 
-/// Test whether the `Variable`s have the same identity.
+/// A type-erased, hashable `Variable`.
+internal struct AnyVariable: Hashable {
+    fileprivate let identity: Identity
+    
+    /// Create a variable with an existing `Identity`.
+    fileprivate init(identity: Identity) {
+        self.identity = identity
+    }
+    
+    var hashValue: Int {
+        return ObjectIdentifier(identity).hashValue
+    }
+    
+    static func ==(lhs: AnyVariable, rhs: AnyVariable) -> Bool {
+        return lhs.identity === rhs.identity
+    }
+}
+
+/// Test whether the variables have the same identity.
 internal func == <Left, Right>(lhs: Variable<Left>, rhs: Variable<Right>) -> Bool {
+    return lhs.identity === rhs.identity
+}
+
+/// Test whether the variables have the same identity.
+internal func == <Value>(lhs: Variable<Value>, rhs: AnyVariable) -> Bool {
+    return lhs.identity === rhs.identity
+}
+
+/// Test whether the variables have the same identity.
+internal func == <Value>(lhs: AnyVariable, rhs: Variable<Value>) -> Bool {
     return lhs.identity === rhs.identity
 }
