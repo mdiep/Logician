@@ -18,8 +18,18 @@ class ContextTests: XCTestCase {
         var context = Context<String, Int>()
         
         XCTAssertNil(context[key1])
+        
         context.updateValue(8, forKey: key1)
         XCTAssertEqual(context[key1], 8)
+        
+        context.updateValue(nil, forKey: key1)
+        XCTAssertNil(context[key1])
+        
+        context[key1] = 7
+        XCTAssertEqual(context[key1], 7)
+        
+        context[key1] = nil
+        XCTAssertNil(context[key1])
     }
     
     func testRemoveValueForKey() {

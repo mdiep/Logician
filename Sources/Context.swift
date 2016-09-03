@@ -8,9 +8,9 @@
 
 private class Node<Key: Hashable, Value> {
     var keys: Set<Key>
-    var value: Value
+    var value: Value?
     
-    init(keys: Set<Key>, value: Value) {
+    init(keys: Set<Key>, value: Value?) {
         self.keys = keys
         self.value = value
     }
@@ -24,11 +24,7 @@ internal struct Context<Key: Hashable, Value> {
             return values[key]?.value
         }
         set(newValue) {
-            if let newValue = newValue {
-                updateValue(newValue, forKey: key)
-            } else {
-                removeValue(forKey: key)
-            }
+            updateValue(newValue, forKey: key)
         }
     }
     
@@ -48,12 +44,12 @@ internal struct Context<Key: Hashable, Value> {
     }
     
     @discardableResult
-    mutating func updateValue(_ newValue: Value, forKey key: Key) -> Value? {
+    mutating func updateValue(_ newValue: Value?, forKey key: Key) -> Value? {
         return updateValue(forKey: key) { _ in newValue }
     }
     
     @discardableResult
-    mutating func updateValue(forKey key: Key, transform: (Value?) -> Value) -> Value? {
+    mutating func updateValue(forKey key: Key, transform: (Value?) -> Value?) -> Value? {
         let node = values[key]
         let oldValue = node?.value
         let newValue = transform(oldValue)
