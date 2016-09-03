@@ -11,6 +11,8 @@
 		BE3D362E1D7880BD00729A4C /* Logician.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3D36201D7880BC00729A4C /* Logician.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE3D36381D7881E200729A4C /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36371D7881E200729A4C /* Context.swift */; };
 		BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36391D78820300729A4C /* ContextTests.swift */; };
+		BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77975F1D7A0544007C13AA /* VariableTests.swift */; };
+		BE7797611D7A0740007C13AA /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77975D1D7A0538007C13AA /* Variable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +33,8 @@
 		BE3D362D1D7880BD00729A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE3D36371D7881E200729A4C /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		BE3D36391D78820300729A4C /* ContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextTests.swift; sourceTree = "<group>"; };
+		BE77975D1D7A0538007C13AA /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
+		BE77975F1D7A0544007C13AA /* VariableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 			isa = PBXGroup;
 			children = (
 				BE3D36371D7881E200729A4C /* Context.swift */,
+				BE77975D1D7A0538007C13AA /* Variable.swift */,
 				BE3D36201D7880BC00729A4C /* Logician.h */,
 				BE3D36211D7880BC00729A4C /* Info.plist */,
 			);
@@ -84,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				BE3D36391D78820300729A4C /* ContextTests.swift */,
+				BE77975F1D7A0544007C13AA /* VariableTests.swift */,
 				BE3D362D1D7880BD00729A4C /* Info.plist */,
 			);
 			path = Tests;
@@ -201,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3D36381D7881E200729A4C /* Context.swift in Sources */,
+				BE7797611D7A0740007C13AA /* Variable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -209,6 +216,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */,
+				BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
