@@ -87,7 +87,8 @@ internal struct Context<Key: Hashable, Value> {
     ///   - transform: A block that takes the current value and returns a new
     ///                one.
     ///
-    /// - returns: The previous value of `key`, if any.    @discardableResult
+    /// - returns: The previous value of `key`, if any.
+    @discardableResult
     mutating func updateValue(forKey key: Key, transform: (Value?) throws -> Value?) rethrows -> Value? {
         let node = values[key]
         let oldValue = node?.value
