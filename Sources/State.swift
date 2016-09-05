@@ -44,6 +44,21 @@ public struct State {
         }
     }
     
+    /// Unify a variable with a value.
+    ///
+    /// - parameters:
+    ///   - variable: The variable to unify
+    ///   - value: The value to give the variable
+    ///
+    /// - returns: The unified state.
+    ///
+    /// - note: `throws` if `variable` already has a different value.
+    public func unifying<Value: Equatable>(_ variable: Variable<Value>, _ value: Value) throws -> State {
+        var state = self
+        try state.unify(variable, value)
+        return state
+    }
+    
     /// Unify two variables.
     ///
     /// - parameters:
@@ -59,5 +74,20 @@ public struct State {
             
             return lhs ?? rhs
         }
+    }
+    
+    /// Unify two variables.
+    ///
+    /// - parameters:
+    ///   - lhs: The first variable to unify
+    ///   - rhs: The second variable to unify
+    ///
+    /// - returns: The unified state.
+    ///
+    /// - note: `throws` if `variable` already has a different value.
+    public func unifying<Value: Equatable>(_ lhs: Variable<Value>, _ rhs: Variable<Value>) throws -> State {
+        var state = self
+        try state.unify(lhs, rhs)
+        return state
     }
 }
