@@ -8,6 +8,10 @@
 
 import Foundation
 
+/// A desired logicial statement.
+///
+/// Represented as a function that takes a produces a stream of states that are
+/// compatible with the goal.
 public typealias Goal = (State) -> AnyIterator<State>
 
 /// A goal that's satisfied when a variable equals a value.
