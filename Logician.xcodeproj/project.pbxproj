@@ -13,6 +13,8 @@
 		BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36391D78820300729A4C /* ContextTests.swift */; };
 		BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77975F1D7A0544007C13AA /* VariableTests.swift */; };
 		BE7797611D7A0740007C13AA /* Variable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77975D1D7A0538007C13AA /* Variable.swift */; };
+		BEF101A21D7CDB5B00796870 /* AnyIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF101A11D7CDB5B00796870 /* AnyIterator.swift */; };
+		BEF101AF1D7CFA1F00796870 /* AnyIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +37,8 @@
 		BE3D36391D78820300729A4C /* ContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextTests.swift; sourceTree = "<group>"; };
 		BE77975D1D7A0538007C13AA /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
 		BE77975F1D7A0544007C13AA /* VariableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VariableTests.swift; sourceTree = "<group>"; };
+		BEF101A11D7CDB5B00796870 /* AnyIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyIterator.swift; sourceTree = "<group>"; };
+		BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyIteratorTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,7 @@
 		BE3D361F1D7880BC00729A4C /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BEF101A11D7CDB5B00796870 /* AnyIterator.swift */,
 				BE3D36371D7881E200729A4C /* Context.swift */,
 				BE77975D1D7A0538007C13AA /* Variable.swift */,
 				BE3D36201D7880BC00729A4C /* Logician.h */,
@@ -88,6 +93,7 @@
 		BE3D362A1D7880BD00729A4C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */,
 				BE3D36391D78820300729A4C /* ContextTests.swift */,
 				BE77975F1D7A0544007C13AA /* VariableTests.swift */,
 				BE3D362D1D7880BD00729A4C /* Info.plist */,
@@ -208,6 +214,7 @@
 			files = (
 				BE3D36381D7881E200729A4C /* Context.swift in Sources */,
 				BE7797611D7A0740007C13AA /* Variable.swift in Sources */,
+				BEF101A21D7CDB5B00796870 /* AnyIterator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */,
+				BEF101AF1D7CFA1F00796870 /* AnyIteratorTests.swift in Sources */,
 				BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
