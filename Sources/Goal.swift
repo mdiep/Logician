@@ -14,6 +14,9 @@ import Foundation
 /// compatible with the goal.
 public typealias Goal = (State) -> AnyIterator<State>
 
+
+// MARK: - Equality
+
 /// A goal that's satisfied when a variable equals a value.
 public func == <Value: Equatable>(variable: Variable<Value>, value: Value) -> Goal {
     return { state in
@@ -42,6 +45,8 @@ public func == <Value: Equatable>(lhs: Variable<Value>, rhs: Variable<Value>) ->
 }
 
 
+// MARK: - Logicial Conjunction
+
 /// A goal that succeeds when all of the subgoals succeed.
 public func all(_ goals: [Goal]) -> Goal {
     return { state in
@@ -60,6 +65,9 @@ public func &&(lhs: Goal, rhs: Goal) -> Goal {
     return all(lhs, rhs)
 }
 
+
+// MARK: - Logicial Disjunction
+
 /// A goal that succeeds when any of the subgoals succeeds.
 ///
 /// This can multiple alternative solutions.
@@ -75,7 +83,6 @@ public func any(_ goals: [Goal]) -> Goal {
 public func any(_ goals: Goal...) -> Goal {
     return any(goals)
 }
-
 
 /// A goal that succeeds when either of the subgoals succeeds.
 ///
