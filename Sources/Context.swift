@@ -90,13 +90,13 @@ internal struct Context<Key: Hashable, Value> {
     /// - returns: The previous value of `key`, if any.
     @discardableResult
     mutating func updateValue(forKey key: Key, transform: (Value?) throws -> Value?) rethrows -> Value? {
-        let node = values[key]
-        let oldValue = node?.value
+        let oldNode = values[key]
+        let oldValue = oldNode?.value
         let newValue = try transform(oldValue)
-        if let node = node {
-            node.value = newValue
-        } else {
-            values[key] = Node(keys: Set([ key ]), value: newValue)
+        let allKeys = oldNode?.keys ?? Set([ key ])
+        let newNode = Node(keys: allKeys, value: newValue)
+        for key in allKeys {
+            values[key] = newNode
         }
         return oldValue
     }

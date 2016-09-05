@@ -78,4 +78,15 @@ class ContextTests: XCTestCase {
         XCTAssertEqual(context[key2], 6)
         XCTAssertEqual(context[key3], 6)
     }
+    
+    func testCopiesAreIndependent() {
+        var original = Context<String, Int>()
+        original[key1] = 4
+        
+        var copy = original
+        copy[key1] = 5
+        
+        XCTAssertEqual(original[key1], 4)
+        XCTAssertEqual(copy[key1], 5)
+    }
 }
