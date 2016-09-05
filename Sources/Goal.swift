@@ -1,0 +1,81 @@
+//
+//  Goal.swift
+//  Logician
+//
+//  Created by Matt Diephouse on 9/3/16.
+//  Copyright © 2016 Matt Diephouse. All rights reserved.
+//
+
+import Foundation
+
+public typealias Goal = (State) -> AnyIterator<State>
+
+/// A goal that's satisfied when a variable equals a value.
+public func == <Value: Equatable>(variable: Variable<Value>, value: Value) -> Goal {
+    return { state in
+        do {
+            return AnyIterator(values: [ try state.unifying(variable, value) ])
+        } catch {
+            return AnyIterator(values: [])
+        }
+    }
+}
+
+/// A goal that's satisfied when a value equals a variable.
+public func == <Value: Equatable>(value: Value, variable: Variable<Value>) -> Goal {
+    return variable == value
+}
+
+/// A goal that's satisfied when two variables are equal.
+public func == <Value: Equatable>(lhs: Variable<Value>, rhs: Variable<Value>) -> Goal {
+    return { state in
+        do {
+            return AnyIterator(values: [ try state.unifying(lhs, rhs) ])
+        } catch {
+            return AnyIterator(values: [])
+        }
+    }
+}
+
+
+/// A goal that succeeds when all of the subgoals succeed.
+public func all(_ goals: [Goal]) -> Goal {
+    return { state in
+        let initial = AnyIterator<State>(values: [ state ])
+        return goals.reduce(initial) { $0.flatMap($1) }
+    }
+}
+
+/// A goal that succeeds when all of the subgoals succeed.
+public func all(_ goals: Goal...) -> Goal {
+    return all(goals)
+}
+
+/// A goal that succeeds when both of the subgoals succeed.
+public func &&(lhs: Goal, rhs: Goal) -> Goal {
+    return all(lhs, rhs)
+}
+
+/// A goal that succeeds when any of the subgoals succeeds.
+///
+/// This can multiple alternative solutions.
+public func any(_ goals: [Goal]) -> Goal {
+    return { state in
+        return AnyIterator(interleaving: goals.map { $0(state) })
+    }
+}
+
+/// A goal that succeeds when any of the subgoals succeeds.
+///
+/// This can multiple alternative solutions.
+public func any(_ goals: Goal...) -> Goal {
+    return any(goals)
+}
+
+
+/// A goal that succeeds when either of the subgoals succeeds.
+///
+/// This can multiple alternative solutions.
+public func ||(lhs: Goal, rhs: Goal) -> Goal {
+    return any(lhs, rhs)
+}
