@@ -35,7 +35,15 @@ class AnyIteratorTests: XCTestCase {
         XCTAssertNil(iterator.next())
     }
     
-    func testFlatMap() {
+    func testFlatMapOfOptionals() {
+        let iterator = AnyIterator(values: [ "a", "20", "c", "30" ])
+            .flatMap { Int($0) }
+        XCTAssertEqual(iterator.next(), 20)
+        XCTAssertEqual(iterator.next(), 30)
+        XCTAssertNil(iterator.next())
+    }
+    
+    func testFlatMapOfIterators() {
         let iterator = AnyIterator(values: [ 10, 20, 30 ])
             .flatMap { AnyIterator(values: [ $0 + 1, $0 + 2 ]) }
         XCTAssertEqual(iterator.next(), 11)
