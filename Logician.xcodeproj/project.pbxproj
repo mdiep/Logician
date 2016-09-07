@@ -19,6 +19,8 @@
 		BE7797661D7B0B9E007C13AA /* Goal.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7797621D7B0B62007C13AA /* Goal.swift */; };
 		BEF101A21D7CDB5B00796870 /* AnyIterator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF101A11D7CDB5B00796870 /* AnyIterator.swift */; };
 		BEF101AF1D7CFA1F00796870 /* AnyIteratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */; };
+		BEF101B31D7FAE3000796870 /* SolveTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF101B21D7FAE3000796870 /* SolveTests.swift */; };
+		BEF101B41D7FAEA400796870 /* Solve.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEF101B01D7FAE1C00796870 /* Solve.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		BE7797641D7B0B6B007C13AA /* GoalTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalTests.swift; sourceTree = "<group>"; };
 		BEF101A11D7CDB5B00796870 /* AnyIterator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyIterator.swift; sourceTree = "<group>"; };
 		BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnyIteratorTests.swift; sourceTree = "<group>"; };
+		BEF101B01D7FAE1C00796870 /* Solve.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Solve.swift; sourceTree = "<group>"; };
+		BEF101B21D7FAE3000796870 /* SolveTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SolveTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +96,7 @@
 				BEF101A11D7CDB5B00796870 /* AnyIterator.swift */,
 				BE3D36371D7881E200729A4C /* Context.swift */,
 				BE7797621D7B0B62007C13AA /* Goal.swift */,
+				BEF101B01D7FAE1C00796870 /* Solve.swift */,
 				BE7797591D79D7CF007C13AA /* State.swift */,
 				BE77975D1D7A0538007C13AA /* Variable.swift */,
 				BE3D36201D7880BC00729A4C /* Logician.h */,
@@ -106,6 +111,7 @@
 				BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */,
 				BE3D36391D78820300729A4C /* ContextTests.swift */,
 				BE7797641D7B0B6B007C13AA /* GoalTests.swift */,
+				BEF101B21D7FAE3000796870 /* SolveTests.swift */,
 				BE77975B1D79D822007C13AA /* StateTests.swift */,
 				BE77975F1D7A0544007C13AA /* VariableTests.swift */,
 				BE3D362D1D7880BD00729A4C /* Info.plist */,
@@ -225,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE7797661D7B0B9E007C13AA /* Goal.swift in Sources */,
+				BEF101B41D7FAEA400796870 /* Solve.swift in Sources */,
 				BE3D36381D7881E200729A4C /* Context.swift in Sources */,
 				BE7797611D7A0740007C13AA /* Variable.swift in Sources */,
 				BEF101A21D7CDB5B00796870 /* AnyIterator.swift in Sources */,
@@ -239,6 +246,7 @@
 				BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */,
 				BE77975C1D79D822007C13AA /* StateTests.swift in Sources */,
 				BE7797651D7B0B6B007C13AA /* GoalTests.swift in Sources */,
+				BEF101B31D7FAE3000796870 /* SolveTests.swift in Sources */,
 				BEF101AF1D7CFA1F00796870 /* AnyIteratorTests.swift in Sources */,
 				BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */,
 			);
