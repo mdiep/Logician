@@ -8,6 +8,14 @@
 
 import Foundation
 
+/// Solve a logic problem and return the value of a variable.
+///
+/// - parameters:
+///   - block: A block that takes a variable and returns goals to satisfy.
+///
+/// - returns: A stream of values that satisfy the goals. If a goal is
+///            satisfied, but the variable has no value, then that state will
+///            be dropped.
 public func solve<Value>(_ block: (Variable<Value>) -> Goal) -> AnyIterator<Value> {
     let variable = Variable<Value>()
     return block(variable)(State())
