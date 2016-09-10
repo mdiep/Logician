@@ -56,12 +56,12 @@ public func all(_ goals: [Goal]) -> Goal {
 }
 
 /// A goal that succeeds when all of the subgoals succeed.
-public func all(_ goals: Goal...) -> Goal {
+public func all(_ goals: @escaping Goal...) -> Goal {
     return all(goals)
 }
 
 /// A goal that succeeds when both of the subgoals succeed.
-public func &&(lhs: Goal, rhs: Goal) -> Goal {
+public func &&(lhs: @escaping Goal, rhs: @escaping Goal) -> Goal {
     return all(lhs, rhs)
 }
 
@@ -80,13 +80,13 @@ public func any(_ goals: [Goal]) -> Goal {
 /// A goal that succeeds when any of the subgoals succeeds.
 ///
 /// This can multiple alternative solutions.
-public func any(_ goals: Goal...) -> Goal {
+public func any(_ goals: @escaping Goal...) -> Goal {
     return any(goals)
 }
 
 /// A goal that succeeds when either of the subgoals succeeds.
 ///
 /// This can multiple alternative solutions.
-public func ||(lhs: Goal, rhs: Goal) -> Goal {
+public func ||(lhs: @escaping Goal, rhs: @escaping Goal) -> Goal {
     return any(lhs, rhs)
 }
