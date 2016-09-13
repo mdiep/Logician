@@ -80,6 +80,7 @@
 				BE3D361E1D7880BC00729A4C /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		BE3D361E1D7880BC00729A4C /* Products */ = {
 			isa = PBXGroup;

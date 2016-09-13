@@ -44,7 +44,7 @@ internal extension AnyIterator {
             return nil
         }
     }
-
+    
     /// Map a function over the elements returned by the iterator, flattening
     /// the resulting iterator of iterators.
     func flatMap(_ transform: @escaping (Element) -> AnyIterator<Element>) -> AnyIterator<Element> {
