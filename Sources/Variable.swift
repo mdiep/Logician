@@ -11,6 +11,14 @@ import Foundation
 /// A class used to provide identity to `Variable`s.
 private class Identity { }
 
+public protocol VariableProtocol {
+    /// The type of value that the variable represents.
+    associatedtype Value
+    
+    /// Extracts the variable from the receiver.
+    var variable: Variable<Value> { get }
+}
+
 /// An unknown value in a logic problem.
 public struct Variable<Value> {
     /// The identity of the variable.
@@ -24,6 +32,12 @@ public struct Variable<Value> {
     /// A type-erased version of the variable.
     internal var erased: AnyVariable {
         return AnyVariable(identity: identity)
+    }
+}
+
+extension Variable: VariableProtocol {
+    public var variable: Variable<Value> {
+        return self
     }
 }
 
