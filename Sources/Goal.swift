@@ -44,6 +44,18 @@ public func == <Value: Equatable>(lhs: Variable<Value>, rhs: Variable<Value>) ->
     }
 }
 
+/// A goal that's satisfied when a property equals a value.
+public func == <Value: Equatable>(property: Property<Value>, value: Value) -> Goal {
+    let constraint = equal([ property ], value: value)
+    return { state in
+        do {
+            return AnyIterator(values: [ try state.constraining(constraint) ])
+        } catch {
+            return AnyIterator(values: [])
+        }
+    }
+}
+
 
 // MARK: - Logicial Conjunction
 

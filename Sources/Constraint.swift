@@ -27,23 +27,24 @@ internal enum Constraint {
     }
 }
 
-/// Create an equality constraint between some variables and, optionally, a
+/// Create an equality constraint between some properties and, optionally, a
 /// value.
-internal func equal<V: VariableProtocol>(_ variables: [V], value: V.Value? = nil) -> Constraint where V.Value: Equatable {
-    let variables = variables.map { $0.variable }
+internal func equal<P: PropertyProtocol>(_ properties: [P], value: P.Value? = nil) -> Constraint where P.Value: Equatable {
+    let properties = properties.map { $0.property }
+    let variables = Set(properties.map { $0.variable })
     let test: Constraint.Test = { state in
         var value = value
-        for v in variables {
-            guard let v = state.value(of: v) else { continue }
+        for p in properties {
+            guard let p = state.value(of: p) else { continue }
             
             if value == nil {
-                value = v
+                value = p
             }
             
-            if value != v {
+            if value != p {
                 throw Error.UnificationError
             }
         }
     }
-    return .equal(Set(variables.map { $0.erased }), test)
+    return .equal(variables, test)
 }

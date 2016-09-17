@@ -11,7 +11,7 @@ import Foundation
 /// A class used to provide identity to `Variable`s.
 private class Identity { }
 
-public protocol VariableProtocol {
+public protocol VariableProtocol: PropertyProtocol {
     /// The type of value that the variable represents.
     associatedtype Value
     
@@ -29,6 +29,10 @@ public struct Variable<Value> {
         identity = Identity()
     }
     
+    public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Property<NewValue> {
+        return Property<NewValue>(self, transform)
+    }
+    
     /// A type-erased version of the variable.
     internal var erased: AnyVariable {
         return AnyVariable(identity: identity)
@@ -36,6 +40,10 @@ public struct Variable<Value> {
 }
 
 extension Variable: VariableProtocol {
+    public var property: Property<Value> {
+        return Property(self, { $0 })
+    }
+    
     public var variable: Variable<Value> {
         return self
     }

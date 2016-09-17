@@ -13,6 +13,8 @@
 		BE3D362E1D7880BD00729A4C /* Logician.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3D36201D7880BC00729A4C /* Logician.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE3D36381D7881E200729A4C /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36371D7881E200729A4C /* Context.swift */; };
 		BE3D363B1D78821200729A4C /* ContextTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36391D78820300729A4C /* ContextTests.swift */; };
+		BE721B6B1D8A2E8100981E50 /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE721B6A1D8A2E8100981E50 /* Property.swift */; };
+		BE721B6E1D8A30FF00981E50 /* PropertyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE721B6C1D8A2EEF00981E50 /* PropertyTests.swift */; };
 		BE77975A1D79D7CF007C13AA /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE7797591D79D7CF007C13AA /* State.swift */; };
 		BE77975C1D79D822007C13AA /* StateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77975B1D79D822007C13AA /* StateTests.swift */; };
 		BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE77975F1D7A0544007C13AA /* VariableTests.swift */; };
@@ -45,6 +47,8 @@
 		BE3D362D1D7880BD00729A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BE3D36371D7881E200729A4C /* Context.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Context.swift; sourceTree = "<group>"; };
 		BE3D36391D78820300729A4C /* ContextTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextTests.swift; sourceTree = "<group>"; };
+		BE721B6A1D8A2E8100981E50 /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
+		BE721B6C1D8A2EEF00981E50 /* PropertyTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PropertyTests.swift; sourceTree = "<group>"; };
 		BE7797591D79D7CF007C13AA /* State.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		BE77975B1D79D822007C13AA /* StateTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTests.swift; sourceTree = "<group>"; };
 		BE77975D1D7A0538007C13AA /* Variable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Variable.swift; sourceTree = "<group>"; };
@@ -102,6 +106,7 @@
 				BE096FE61D8DA76B00FE5A3A /* Constraint.swift */,
 				BE3D36371D7881E200729A4C /* Context.swift */,
 				BE7797621D7B0B62007C13AA /* Goal.swift */,
+				BE721B6A1D8A2E8100981E50 /* Property.swift */,
 				BEF101B01D7FAE1C00796870 /* Solve.swift */,
 				BE7797591D79D7CF007C13AA /* State.swift */,
 				BE77975D1D7A0538007C13AA /* Variable.swift */,
@@ -118,6 +123,7 @@
 				BE096FE81D8DA92800FE5A3A /* ConstraintTests.swift */,
 				BE3D36391D78820300729A4C /* ContextTests.swift */,
 				BE7797641D7B0B6B007C13AA /* GoalTests.swift */,
+				BE721B6C1D8A2EEF00981E50 /* PropertyTests.swift */,
 				BEF101B21D7FAE3000796870 /* SolveTests.swift */,
 				BE77975B1D79D822007C13AA /* StateTests.swift */,
 				BE77975F1D7A0544007C13AA /* VariableTests.swift */,
@@ -237,6 +243,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BE721B6B1D8A2E8100981E50 /* Property.swift in Sources */,
 				BE7797661D7B0B9E007C13AA /* Goal.swift in Sources */,
 				BEF101B41D7FAEA400796870 /* Solve.swift in Sources */,
 				BE096FE71D8DA76B00FE5A3A /* Constraint.swift in Sources */,
@@ -256,6 +263,7 @@
 				BE7797651D7B0B6B007C13AA /* GoalTests.swift in Sources */,
 				BEF101B31D7FAE3000796870 /* SolveTests.swift in Sources */,
 				BE096FE91D8DA92800FE5A3A /* ConstraintTests.swift in Sources */,
+				BE721B6E1D8A30FF00981E50 /* PropertyTests.swift in Sources */,
 				BEF101AF1D7CFA1F00796870 /* AnyIteratorTests.swift in Sources */,
 				BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */,
 			);

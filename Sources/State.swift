@@ -31,6 +31,18 @@ public struct State {
     /// The constraints on the state.
     private var constraints: [Constraint] = []
     
+    /// Look up the value of a property.
+    ///
+    /// - parameters:
+    ///   - property: A property of a variable in the state
+    ///
+    /// - returns: The value of the property, or `nil` if the value is unknown
+    ///            or the variable isn't in the `State`.
+    public func value<Value>(of property: Property<Value>) -> Value? {
+        return value(of: property.variable)
+            .map { property.transform($0) as! Value }
+    }
+    
     /// Look up the value of a variable.
     ///
     /// - parameters:

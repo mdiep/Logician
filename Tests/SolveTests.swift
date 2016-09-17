@@ -22,4 +22,12 @@ class SolveTests: XCTestCase {
         }
         XCTAssertEqual(xs.map { $0 }, [ 5, 6, 7 ])
     }
+    
+    func testSolveWithProperty() {
+        let strings: AnyIterator<String> = solve { x in
+            return x.map { $0.characters.count } == 4
+                && any(x == "cat", x == "bird", x == "mouse")
+        }
+        XCTAssertEqual(strings.map { $0 }, [ "bird" ])
+    }
 }

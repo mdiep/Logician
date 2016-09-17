@@ -10,6 +10,20 @@ import XCTest
 @testable import Logician
 
 class StateTests: XCTestCase {
+    // MARK: - `State.value(of: Property<Value>)`
+    
+    func testValueOfProperty() {
+        var state = State()
+        let x = Variable<String>()
+        let y = x.map { $0.characters.count }
+        
+        XCTAssertNil(state.value(of: y))
+        
+        try! state.unify(x, "foo")
+        
+        XCTAssertEqual(state.value(of: y), 3)
+    }
+    
     // MARK: - `State.constrain()`
     
     func testConstrainBeforeUnifyingValue() {
