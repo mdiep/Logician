@@ -28,6 +28,20 @@ public struct State {
     /// The data backing the state.
     private var context = Context<AnyVariable, Info>()
     
+    /// The constraints on the state.
+    private var constraints: [Constraint] = []
+    
+    /// Look up the value of a variable.
+    ///
+    /// - parameters:
+    ///   - variable: A variable in the state
+    ///
+    /// - returns: The value of the variable, or `nil` if the value is unknown
+    ///            or the variable isn't in the `State`.
+    private func value(of variable: AnyVariable) -> Any? {
+        return context[variable]?.value
+    }
+    
     /// Look up the value of a variable.
     ///
     /// - parameters:
@@ -36,7 +50,28 @@ public struct State {
     /// - returns: The value of the variable, or `nil` if the value is unknown
     ///            or the variable isn't in the `State`.
     public func value<Value>(of variable: Variable<Value>) -> Value? {
-        return context[variable.erased]?.value.map { $0 as! Value }
+        return value(of: variable.erased).map { $0 as! Value }
+    }
+    
+    /// Add a constraint to the state.
+    internal mutating func constrain(_ constraint: Constraint) throws {
+        try constraint.enforce(self)
+        constraints.append(constraint)
+    }
+    
+    /// Add a constraint to the state.
+    internal func constraining(_ constraint: Constraint) throws -> State {
+        var state = self
+        try state.constrain(constraint)
+        return state
+    }
+    
+    /// Verify that all the constraints in the state have been maintained,
+    /// throwing if any have been violated.
+    private func verifyConstraints() throws {
+        for constraint in constraints {
+            try constraint.enforce(self)
+        }
     }
     
     /// Unify a variable with a value.
@@ -47,15 +82,7 @@ public struct State {
     ///
     /// - note: `throws` if `variable` already has a different value.
     public mutating func unify<Value: Equatable>(_ variable: Variable<Value>, _ value: Value) throws {
-        try context.updateValue(forKey: variable.erased) { oldInfo in
-            if let oldValue = oldInfo?.value(Value.self), oldValue != value {
-                throw Error.UnificationError
-            }
-            
-            let newInfo = oldInfo ?? Info()
-            newInfo.value = value
-            return newInfo
-        }
+        self = try unifying(variable, value)
     }
     
     /// Unify a variable with a value.
@@ -69,7 +96,16 @@ public struct State {
     /// - note: `throws` if `variable` already has a different value.
     public func unifying<Value: Equatable>(_ variable: Variable<Value>, _ value: Value) throws -> State {
         var state = self
-        try state.unify(variable, value)
+        try state.context.updateValue(forKey: variable.erased) { oldInfo in
+            if let oldValue = oldInfo?.value(Value.self), oldValue != value {
+                throw Error.UnificationError
+            }
+            
+            let newInfo = oldInfo ?? Info()
+            newInfo.value = value
+            return newInfo
+        }
+        try state.verifyConstraints()
         return state
     }
     
@@ -81,13 +117,7 @@ public struct State {
     ///
     /// - note: `throws` if the variables have existing, inequal values.
     public mutating func unify<Value: Equatable>(_ lhs: Variable<Value>, _ rhs: Variable<Value>) throws {
-        try context.merge(lhs.erased, rhs.erased) { lhs, rhs in
-            if let lhs = lhs?.value(Value.self), let rhs = rhs?.value(Value.self), lhs != rhs {
-                throw Error.UnificationError
-            }
-            
-            return lhs ?? rhs
-        }
+        self = try unifying(lhs, rhs)
     }
     
     /// Unify two variables.
@@ -101,7 +131,14 @@ public struct State {
     /// - note: `throws` if `variable` already has a different value.
     public func unifying<Value: Equatable>(_ lhs: Variable<Value>, _ rhs: Variable<Value>) throws -> State {
         var state = self
-        try state.unify(lhs, rhs)
+        try state.context.merge(lhs.erased, rhs.erased) { lhs, rhs in
+            if let lhs = lhs?.value(Value.self), let rhs = rhs?.value(Value.self), lhs != rhs {
+                throw Error.UnificationError
+            }
+            
+            return lhs ?? rhs
+        }
+        try state.verifyConstraints()
         return state
     }
 }

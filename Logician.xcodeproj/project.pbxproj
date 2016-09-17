@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BE096FE71D8DA76B00FE5A3A /* Constraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE096FE61D8DA76B00FE5A3A /* Constraint.swift */; };
+		BE096FE91D8DA92800FE5A3A /* ConstraintTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE096FE81D8DA92800FE5A3A /* ConstraintTests.swift */; };
 		BE3D36271D7880BD00729A4C /* Logician.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE3D361D1D7880BC00729A4C /* Logician.framework */; };
 		BE3D362E1D7880BD00729A4C /* Logician.h in Headers */ = {isa = PBXBuildFile; fileRef = BE3D36201D7880BC00729A4C /* Logician.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BE3D36381D7881E200729A4C /* Context.swift in Sources */ = {isa = PBXBuildFile; fileRef = BE3D36371D7881E200729A4C /* Context.swift */; };
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BE096FE61D8DA76B00FE5A3A /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
+		BE096FE81D8DA92800FE5A3A /* ConstraintTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConstraintTests.swift; sourceTree = "<group>"; };
 		BE3D361D1D7880BC00729A4C /* Logician.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Logician.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE3D36201D7880BC00729A4C /* Logician.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Logician.h; sourceTree = "<group>"; };
 		BE3D36211D7880BC00729A4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -95,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				BEF101A11D7CDB5B00796870 /* AnyIterator.swift */,
+				BE096FE61D8DA76B00FE5A3A /* Constraint.swift */,
 				BE3D36371D7881E200729A4C /* Context.swift */,
 				BE7797621D7B0B62007C13AA /* Goal.swift */,
 				BEF101B01D7FAE1C00796870 /* Solve.swift */,
@@ -110,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				BEF101AE1D7CFA1F00796870 /* AnyIteratorTests.swift */,
+				BE096FE81D8DA92800FE5A3A /* ConstraintTests.swift */,
 				BE3D36391D78820300729A4C /* ContextTests.swift */,
 				BE7797641D7B0B6B007C13AA /* GoalTests.swift */,
 				BEF101B21D7FAE3000796870 /* SolveTests.swift */,
@@ -233,6 +239,7 @@
 			files = (
 				BE7797661D7B0B9E007C13AA /* Goal.swift in Sources */,
 				BEF101B41D7FAEA400796870 /* Solve.swift in Sources */,
+				BE096FE71D8DA76B00FE5A3A /* Constraint.swift in Sources */,
 				BE3D36381D7881E200729A4C /* Context.swift in Sources */,
 				BE7797611D7A0740007C13AA /* Variable.swift in Sources */,
 				BEF101A21D7CDB5B00796870 /* AnyIterator.swift in Sources */,
@@ -248,6 +255,7 @@
 				BE77975C1D79D822007C13AA /* StateTests.swift in Sources */,
 				BE7797651D7B0B6B007C13AA /* GoalTests.swift in Sources */,
 				BEF101B31D7FAE3000796870 /* SolveTests.swift in Sources */,
+				BE096FE91D8DA92800FE5A3A /* ConstraintTests.swift in Sources */,
 				BEF101AF1D7CFA1F00796870 /* AnyIteratorTests.swift in Sources */,
 				BE7797601D7A0544007C13AA /* VariableTests.swift in Sources */,
 			);
