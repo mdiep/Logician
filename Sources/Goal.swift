@@ -18,10 +18,10 @@ public typealias Goal = (State) -> AnyIterator<State>
 // MARK: - Equality
 
 /// A goal that's satisfied when a variable equals a value.
-public func == <Value: Equatable>(variable: Variable<Value>, value: Value) -> Goal {
+public func == <V: VariableProtocol>(variable: V, value: V.Value) -> Goal where V.Value: Equatable {
     return { state in
         do {
-            return AnyIterator(values: [ try state.unifying(variable, value) ])
+            return AnyIterator(values: [ try state.unifying(variable.variable, value) ])
         } catch {
             return AnyIterator(values: [])
         }
@@ -29,15 +29,15 @@ public func == <Value: Equatable>(variable: Variable<Value>, value: Value) -> Go
 }
 
 /// A goal that's satisfied when a value equals a variable.
-public func == <Value: Equatable>(value: Value, variable: Variable<Value>) -> Goal {
+public func == <V: VariableProtocol>(value: V.Value, variable: V) -> Goal where V.Value: Equatable {
     return variable == value
 }
 
 /// A goal that's satisfied when two variables are equal.
-public func == <Value: Equatable>(lhs: Variable<Value>, rhs: Variable<Value>) -> Goal {
+public func == <V: VariableProtocol>(lhs: V, rhs: V) -> Goal where V.Value: Equatable {
     return { state in
         do {
-            return AnyIterator(values: [ try state.unifying(lhs, rhs) ])
+            return AnyIterator(values: [ try state.unifying(lhs.variable, rhs.variable) ])
         } catch {
             return AnyIterator(values: [])
         }
@@ -47,6 +47,23 @@ public func == <Value: Equatable>(lhs: Variable<Value>, rhs: Variable<Value>) ->
 /// A goal that's satisfied when a property equals a value.
 public func == <Value: Equatable>(property: Property<Value>, value: Value) -> Goal {
     let constraint = equal([ property ], value: value)
+    return { state in
+        do {
+            return AnyIterator(values: [ try state.constraining(constraint) ])
+        } catch {
+            return AnyIterator(values: [])
+        }
+    }
+}
+
+/// A goal that's satisfied when a property equals a value.
+public func == <Value: Equatable>(value: Value, property: Property<Value>) -> Goal {
+    return property == value
+}
+
+/// A goal that's satisfied when two properties are equal.
+public func == <P: PropertyProtocol>(lhs: P, rhs: P) -> Goal where P.Value: Equatable {
+    let constraint = equal([ lhs, rhs ])
     return { state in
         do {
             return AnyIterator(values: [ try state.constraining(constraint) ])
