@@ -9,33 +9,13 @@
 import Foundation
 
 /// A constraint on the validity of a `State`.
-internal enum Constraint {
-    /// A function that tests whether the constraint is met, throwing an error
-    /// if it's not.
-    typealias Test = (State) throws -> ()
-    
-    /// An equality constraint comprised of variables that affect it and a test.
-    case equal(Set<AnyVariable>, Test)
-    
-    /// A constraint that a property must not equal a value.
-    case unequal(AnyVariable, Test)
-    
-    /// Test the constraint against a `State`, throwing an error if it's not
-    /// met.
-    func enforce(_ state: State) throws {
-        switch self {
-        case let .equal(_, test), let .unequal(_, test):
-            try test(state)
-        }
-    }
-}
+internal typealias Constraint = (State) throws -> ()
 
 /// Create an equality constraint between some properties and, optionally, a
 /// value.
 internal func equal<P: PropertyProtocol>(_ properties: [P], value: P.Value? = nil) -> Constraint where P.Value: Equatable {
     let properties = properties.map { $0.property }
-    let variables = Set(properties.map { $0.variable })
-    let test: Constraint.Test = { state in
+    return { state in
         var value = value
         for p in properties {
             guard let p = state.value(of: p) else { continue }
@@ -49,15 +29,13 @@ internal func equal<P: PropertyProtocol>(_ properties: [P], value: P.Value? = ni
             }
         }
     }
-    return .equal(variables, test)
 }
 
 /// Create an inequality constraint between a property and a value.
 internal func unequal<Value: Equatable>(_ property: Property<Value>, _ value: Value) -> Constraint {
-    let test: Constraint.Test = { state in
+    return { state in
         if let v = state.value(of: property), v == value {
             throw Error.UnificationError
         }
     }
-    return .unequal(property.variable, test)
 }

@@ -18,7 +18,7 @@ private func succeed(
     var state = State()
     try! block(&state)
     do {
-        try constraint.enforce(state)
+        try constraint(state)
     }
     catch {
         XCTFail("Constraint failed unexpectedly", file: file, line: line)
@@ -34,7 +34,7 @@ private func fail(
     var state = State()
     try! block(&state)
     do {
-        try constraint.enforce(state)
+        try constraint(state)
         XCTFail("Constraint succeeded unexpectedly", file: file, line: line)
     }
     catch {

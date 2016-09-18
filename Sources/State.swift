@@ -66,13 +66,13 @@ public struct State {
     }
     
     /// Add a constraint to the state.
-    internal mutating func constrain(_ constraint: Constraint) throws {
-        try constraint.enforce(self)
+    internal mutating func constrain(_ constraint: @escaping Constraint) throws {
+        try constraint(self)
         constraints.append(constraint)
     }
     
     /// Add a constraint to the state.
-    internal func constraining(_ constraint: Constraint) throws -> State {
+    internal func constraining(_ constraint: @escaping Constraint) throws -> State {
         var state = self
         try state.constrain(constraint)
         return state
@@ -82,7 +82,7 @@ public struct State {
     /// throwing if any have been violated.
     private func verifyConstraints() throws {
         for constraint in constraints {
-            try constraint.enforce(self)
+            try constraint(self)
         }
     }
     
