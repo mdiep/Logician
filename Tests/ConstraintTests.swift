@@ -137,9 +137,9 @@ class ConstraintEqualTests: XCTestCase {
 }
 
 class ConstraintUnequalTests: XCTestCase {
-    func testSuccess() {
+    func testSuccessWithValue() {
         let x = Variable<Int>()
-        let constraint = unequal(x.property, 42)
+        let constraint = unequal([ x ], values: [ 42 ])
         
         succeed(constraint) { _ in }
         
@@ -159,9 +159,9 @@ class ConstraintUnequalTests: XCTestCase {
         }
     }
     
-    func testFailure() {
+    func testFailureWithValue() {
         let x = Variable<Int>()
-        let constraint = unequal(x.property, 42)
+        let constraint = unequal([ x ], values: [ 42 ])
         
         fail(constraint) {
             try! $0.unify(x, 42)
@@ -169,6 +169,43 @@ class ConstraintUnequalTests: XCTestCase {
         
         fail(constraint) {
             let y = Variable<Int>()
+            try! $0.unify(x, y)
+            try! $0.unify(y, 42)
+        }
+    }
+    
+    func testSuccessWithoutValue() {
+        let x = Variable<Int>()
+        let y = Variable<Int>()
+        let constraint = unequal([ x, y ])
+        
+        succeed(constraint) { _ in }
+        
+        succeed(constraint) {
+            try! $0.unify(x, 5)
+        }
+        
+        succeed(constraint) {
+            try! $0.unify(y, 5)
+        }
+        
+        succeed(constraint) {
+            try! $0.unify(x, 6)
+            try! $0.unify(y, 5)
+        }
+    }
+    
+    func testFailureWithoutValue() {
+        let x = Variable<Int>()
+        let y = Variable<Int>()
+        let constraint = unequal([ x, y ])
+        
+        fail(constraint) {
+            try! $0.unify(x, 42)
+            try! $0.unify(y, 42)
+        }
+        
+        fail(constraint) {
             try! $0.unify(x, y)
             try! $0.unify(y, 42)
         }

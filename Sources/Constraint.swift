@@ -31,11 +31,19 @@ internal func equal<P: PropertyProtocol>(_ properties: [P], value: P.Value? = ni
     }
 }
 
-/// Create an inequality constraint between a property and a value.
-internal func unequal<Value: Equatable>(_ property: Property<Value>, _ value: Value) -> Constraint {
+/// Create an inequality constraint between some properties and, optionally, a
+/// value.
+internal func unequal<P: PropertyProtocol>(_ properties: [P], values: Set<P.Value> = []) -> Constraint where P.Value: Hashable {
+    let properties = properties.map { $0.property }
     return { state in
-        if let v = state.value(of: property), v == value {
-            throw Error.UnificationError
+        var values = values
+        for p in properties {
+            guard let p = state.value(of: p) else { continue }
+            
+            if values.contains(p) {
+                throw Error.UnificationError
+            }
+            values.insert(p)
         }
     }
 }
