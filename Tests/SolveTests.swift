@@ -25,9 +25,20 @@ class SolveTests: XCTestCase {
     
     func testSolveWithProperty() {
         let strings: AnyIterator<String> = solve { x in
-            return x.map { $0.characters.count } == 4
-                && any(x == "cat", x == "bird", x == "mouse")
+            return x.map { $0.characters.count } == 3
+                && any(x == "cat", x == "dog", x == "bird", x == "mouse")
+                && x != "cat"
         }
-        XCTAssertEqual(strings.map { $0 }, [ "bird" ])
+        XCTAssertEqual(strings.map { $0 }, [ "dog" ])
+    }
+    
+    func testSolveWithInequality() {
+        let xs: AnyIterator<Int> = solve { x in
+            let y = Variable<Int>()
+            return any(x == 1, x == 2, x == 3)
+                && y == 2
+                && x != y
+        }
+        XCTAssertEqual(xs.map { $0 }, [ 1, 3 ])
     }
 }
