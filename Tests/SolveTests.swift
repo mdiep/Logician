@@ -24,7 +24,7 @@ class SolveTests: XCTestCase {
     }
     
     func testSolveWithProperty() {
-        let strings: AnyIterator<String> = solve { x in
+        let strings: AnyIterator<String> = solve { (x: Variable<String>) in
             return x.map { $0.characters.count } == 3
                 && any(x == "cat", x == "dog", x == "bird", x == "mouse")
                 && x != "cat"
