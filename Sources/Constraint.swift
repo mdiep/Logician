@@ -17,11 +17,14 @@ internal enum Constraint {
     /// An equality constraint comprised of variables that affect it and a test.
     case equal(Set<AnyVariable>, Test)
     
+    /// A constraint that a property must not equal a value.
+    case unequal(AnyVariable, Test)
+    
     /// Test the constraint against a `State`, throwing an error if it's not
     /// met.
     func enforce(_ state: State) throws {
         switch self {
-        case let .equal(_, test):
+        case let .equal(_, test), let .unequal(_, test):
             try test(state)
         }
     }
@@ -47,4 +50,14 @@ internal func equal<P: PropertyProtocol>(_ properties: [P], value: P.Value? = ni
         }
     }
     return .equal(variables, test)
+}
+
+/// Create an inequality constraint between a property and a value.
+internal func unequal<Value: Equatable>(_ property: Property<Value>, _ value: Value) -> Constraint {
+    let test: Constraint.Test = { state in
+        if let v = state.value(of: property), v == value {
+            throw Error.UnificationError
+        }
+    }
+    return .unequal(property.variable, test)
 }

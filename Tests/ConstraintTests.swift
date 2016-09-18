@@ -9,9 +9,36 @@
 import XCTest
 @testable import Logician
 
-private func test(_ block: (inout State) throws -> ()) {
+private func succeed(
+    _ constraint: Constraint,
+    file: StaticString = #file,
+    line: UInt = #line,
+    _ block: (inout State) throws -> ())
+{
     var state = State()
     try! block(&state)
+    do {
+        try constraint.enforce(state)
+    }
+    catch {
+        XCTFail("Constraint failed unexpectedly", file: file, line: line)
+    }
+}
+
+private func fail(
+    _ constraint: Constraint,
+    file: StaticString = #file,
+    line: UInt = #line,
+    _ block: (inout State) throws -> ())
+{
+    var state = State()
+    try! block(&state)
+    do {
+        try constraint.enforce(state)
+        XCTFail("Constraint succeeded unexpectedly", file: file, line: line)
+    }
+    catch {
+    }
 }
 
 class ConstraintEqualTests: XCTestCase {
@@ -20,24 +47,19 @@ class ConstraintEqualTests: XCTestCase {
         let y = Variable<Int>()
         let constraint = equal([x, y], value: 4)
         
-        test {
-            try! constraint.enforce($0)
-        }
+        succeed(constraint) { _ in }
         
-        test {
+        succeed(constraint) {
             try! $0.unify(x, 4)
-            try! constraint.enforce($0)
         }
         
-        test {
+        succeed(constraint) {
             try! $0.unify(y, 4)
-            try! constraint.enforce($0)
         }
         
-        test {
+        succeed(constraint) {
             try! $0.unify(x, 4)
             try! $0.unify(y, 4)
-            try! constraint.enforce($0)
         }
     }
     
@@ -46,21 +68,18 @@ class ConstraintEqualTests: XCTestCase {
         let y = Variable<Int>()
         let constraint = equal([x, y], value: 4)
         
-        test {
+        fail(constraint) {
             try! $0.unify(x, 5)
-            XCTAssertThrowsError(try constraint.enforce($0))
         }
         
-        test {
+        fail(constraint) {
             try! $0.unify(y, 5)
-            XCTAssertThrowsError(try constraint.enforce($0))
         }
         
-        test {
+        fail(constraint) {
             let z = Variable<Int>()
             try! $0.unify(z, 5)
             try! $0.unify(x, z)
-            XCTAssertThrowsError(try constraint.enforce($0))
         }
     }
     
@@ -69,39 +88,32 @@ class ConstraintEqualTests: XCTestCase {
         let y = Variable<Int>()
         let constraint = equal([x, y])
         
-        test {
-            try! constraint.enforce($0)
-        }
+        succeed(constraint) { _ in }
         
-        test {
+        succeed(constraint) {
             try! $0.unify(x, 5)
-            try! constraint.enforce($0)
         }
         
-        test {
+        succeed(constraint) {
             try! $0.unify(y, 5)
-            try! constraint.enforce($0)
         }
         
-        test {
+        succeed(constraint) {
             try! $0.unify(x, 5)
             try! $0.unify(y, 5)
-            try! constraint.enforce($0)
         }
         
-        test {
+        succeed(constraint) {
             let z = Variable<Int>()
             try! $0.unify(x, z)
             try! $0.unify(y, z)
-            try! constraint.enforce($0)
         }
         
-        test {
+        succeed(constraint) {
             let z = Variable<Int>()
             try! $0.unify(x, z)
             try! $0.unify(y, z)
             try! $0.unify(z, 5)
-            try! constraint.enforce($0)
         }
     }
     
@@ -110,18 +122,55 @@ class ConstraintEqualTests: XCTestCase {
         let y = Variable<Int>()
         let constraint = equal([x, y])
         
-        test {
+        fail(constraint) {
             try! $0.unify(x, 2)
             try! $0.unify(y, 7)
-            XCTAssertThrowsError(try constraint.enforce($0))
         }
         
-        test {
+        fail(constraint) {
             let z = Variable<Int>()
             try! $0.unify(z, 2)
             try! $0.unify(x, z)
             try! $0.unify(y, 7)
-            XCTAssertThrowsError(try constraint.enforce($0))
+        }
+    }
+}
+
+class ConstraintUnequalTests: XCTestCase {
+    func testSuccess() {
+        let x = Variable<Int>()
+        let constraint = unequal(x.property, 42)
+        
+        succeed(constraint) { _ in }
+        
+        succeed(constraint) {
+            try! $0.unify(x, 5)
+        }
+        
+        succeed(constraint) {
+            let y = Variable<Int>()
+            try! $0.unify(x, y)
+        }
+        
+        succeed(constraint) {
+            let y = Variable<Int>()
+            try! $0.unify(x, y)
+            try! $0.unify(y, 5)
+        }
+    }
+    
+    func testFailure() {
+        let x = Variable<Int>()
+        let constraint = unequal(x.property, 42)
+        
+        fail(constraint) {
+            try! $0.unify(x, 42)
+        }
+        
+        fail(constraint) {
+            let y = Variable<Int>()
+            try! $0.unify(x, y)
+            try! $0.unify(y, 42)
         }
     }
 }
