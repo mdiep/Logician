@@ -10,9 +10,9 @@ import Foundation
 
 /// A desired logicial statement.
 ///
-/// Represented as a function that takes a produces a stream of states that are
-/// compatible with the goal.
-public typealias Goal = (State) -> AnyIterator<State>
+/// Represented as a function that takes a produces a generator of states that
+/// are compatible with the goal.
+public typealias Goal = (State) -> Generator<State>
 
 
 // MARK: - Equality
@@ -21,9 +21,9 @@ public typealias Goal = (State) -> AnyIterator<State>
 public func == <V: VariableProtocol>(variable: V, value: V.Value) -> Goal where V.Value: Equatable {
     return { state in
         do {
-            return AnyIterator(values: [ try state.unifying(variable.variable, value) ])
+            return Generator(values: [ try state.unifying(variable.variable, value) ])
         } catch {
-            return AnyIterator(values: [])
+            return Generator()
         }
     }
 }
@@ -37,9 +37,9 @@ public func == <V: VariableProtocol>(value: V.Value, variable: V) -> Goal where 
 public func == <V: VariableProtocol>(lhs: V, rhs: V) -> Goal where V.Value: Equatable {
     return { state in
         do {
-            return AnyIterator(values: [ try state.unifying(lhs.variable, rhs.variable) ])
+            return Generator(values: [ try state.unifying(lhs.variable, rhs.variable) ])
         } catch {
-            return AnyIterator(values: [])
+            return Generator()
         }
     }
 }
@@ -49,9 +49,9 @@ public func == <Value: Equatable>(property: Property<Value>, value: Value) -> Go
     let constraint = equal([ property ], value: value)
     return { state in
         do {
-            return AnyIterator(values: [ try state.constraining(constraint) ])
+            return Generator(values: [ try state.constraining(constraint) ])
         } catch {
-            return AnyIterator(values: [])
+            return Generator()
         }
     }
 }
@@ -66,9 +66,9 @@ public func == <P: PropertyProtocol>(lhs: P, rhs: P) -> Goal where P.Value: Equa
     let constraint = equal([ lhs, rhs ])
     return { state in
         do {
-            return AnyIterator(values: [ try state.constraining(constraint) ])
+            return Generator(values: [ try state.constraining(constraint) ])
         } catch {
-            return AnyIterator(values: [])
+            return Generator()
         }
     }
 }
@@ -81,9 +81,9 @@ public func != <Value: Hashable>(property: Property<Value>, value: Value) -> Goa
     let constraint = unequal([ property ], values: Set([ value ]))
     return { state in
         do {
-            return AnyIterator(values: [ try state.constraining(constraint) ])
+            return Generator(values: [ try state.constraining(constraint) ])
         } catch {
-            return AnyIterator(values: [])
+            return Generator()
         }
     }
 }
@@ -108,9 +108,9 @@ public func != <Value: Hashable>(lhs: Property<Value>, rhs: Property<Value>) -> 
     let constraint = unequal([ lhs, rhs ])
     return { state in
         do {
-            return AnyIterator(values: [ try state.constraining(constraint) ])
+            return Generator(values: [ try state.constraining(constraint) ])
         } catch {
-            return AnyIterator(values: [])
+            return Generator()
         }
     }
 }
@@ -135,7 +135,7 @@ public func != <Value: Hashable>(lhs: Property<Value>, rhs: Variable<Value>) -> 
 /// A goal that succeeds when all of the subgoals succeed.
 public func all(_ goals: [Goal]) -> Goal {
     return { state in
-        let initial = AnyIterator<State>(values: [ state ])
+        let initial = Generator<State>(values: [ state ])
         return goals.reduce(initial) { $0.flatMap($1) }
     }
 }
@@ -158,7 +158,7 @@ public func &&(lhs: @escaping Goal, rhs: @escaping Goal) -> Goal {
 /// This can multiple alternative solutions.
 public func any(_ goals: [Goal]) -> Goal {
     return { state in
-        return AnyIterator(interleaving: goals.map { $0(state) })
+        return Generator(interleaving: goals.map { $0(state) })
     }
 }
 
