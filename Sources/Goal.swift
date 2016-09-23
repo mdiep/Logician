@@ -14,18 +14,30 @@ import Foundation
 /// are compatible with the goal.
 public typealias Goal = (State) -> Generator<State>
 
+/// Create a `Goal` with a block that tries to transform a state. If the block
+/// throws, an empty generator will be returned, signaling a deadend.
+private func goal(_ block: @escaping (State) throws -> (State)) -> Goal {
+    return { state in
+        do {
+            let state = try block(state)
+            return Generator(values: [ state ])
+        } catch {
+            return Generator()
+        }
+    }
+}
+
+/// Create a `Goal` that enforces a constraint
+private func goal(_ constraint: @escaping Constraint) -> Goal {
+    return goal { try $0.constraining(constraint) }
+}
+
 
 // MARK: - Equality
 
 /// A goal that's satisfied when a variable equals a value.
 public func == <V: VariableProtocol>(variable: V, value: V.Value) -> Goal where V.Value: Equatable {
-    return { state in
-        do {
-            return Generator(values: [ try state.unifying(variable.variable, value) ])
-        } catch {
-            return Generator()
-        }
-    }
+    return goal { try $0.unifying(variable.variable, value) }
 }
 
 /// A goal that's satisfied when a value equals a variable.
@@ -35,25 +47,12 @@ public func == <V: VariableProtocol>(value: V.Value, variable: V) -> Goal where 
 
 /// A goal that's satisfied when two variables are equal.
 public func == <V: VariableProtocol>(lhs: V, rhs: V) -> Goal where V.Value: Equatable {
-    return { state in
-        do {
-            return Generator(values: [ try state.unifying(lhs.variable, rhs.variable) ])
-        } catch {
-            return Generator()
-        }
-    }
+    return goal { try $0.unifying(lhs.variable, rhs.variable) }
 }
 
 /// A goal that's satisfied when a property equals a value.
 public func == <Value: Equatable>(property: Property<Value>, value: Value) -> Goal {
-    let constraint = equal([ property ], value: value)
-    return { state in
-        do {
-            return Generator(values: [ try state.constraining(constraint) ])
-        } catch {
-            return Generator()
-        }
-    }
+    return goal(equal([ property ], value: value))
 }
 
 /// A goal that's satisfied when a property equals a value.
@@ -63,14 +62,7 @@ public func == <Value: Equatable>(value: Value, property: Property<Value>) -> Go
 
 /// A goal that's satisfied when two properties are equal.
 public func == <P: PropertyProtocol>(lhs: P, rhs: P) -> Goal where P.Value: Equatable {
-    let constraint = equal([ lhs, rhs ])
-    return { state in
-        do {
-            return Generator(values: [ try state.constraining(constraint) ])
-        } catch {
-            return Generator()
-        }
-    }
+    return goal(equal([ lhs, rhs ]))
 }
 
 
@@ -78,14 +70,7 @@ public func == <P: PropertyProtocol>(lhs: P, rhs: P) -> Goal where P.Value: Equa
 
 /// A goal that's satisfied when a property doesn't equal a value.
 public func != <Value: Hashable>(property: Property<Value>, value: Value) -> Goal {
-    let constraint = unequal([ property ], values: Set([ value ]))
-    return { state in
-        do {
-            return Generator(values: [ try state.constraining(constraint) ])
-        } catch {
-            return Generator()
-        }
-    }
+    return goal(unequal([ property ], values: Set([ value ])))
 }
 
 /// A goal that's satisfied when a property doesn't equal a value.
@@ -105,14 +90,7 @@ public func != <Value: Hashable>(value: Value, variable: Variable<Value>) -> Goa
 
 /// A goal that's satisfied when two properties aren't equal.
 public func != <Value: Hashable>(lhs: Property<Value>, rhs: Property<Value>) -> Goal {
-    let constraint = unequal([ lhs, rhs ])
-    return { state in
-        do {
-            return Generator(values: [ try state.constraining(constraint) ])
-        } catch {
-            return Generator()
-        }
-    }
+    return goal(unequal([ lhs, rhs ]))
 }
 
 /// A goal that's satisfied when two variables aren't equal.
