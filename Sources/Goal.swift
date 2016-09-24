@@ -103,10 +103,21 @@ public func != <Value: Hashable>(lhs: Variable<Value>, rhs: Property<Value>) -> 
     return lhs.property != rhs
 }
 
-/// A goal that's satisfied when a variale and a property aren't equal.
+/// A goal that's satisfied when a variable and a property aren't equal.
 public func != <Value: Hashable>(lhs: Property<Value>, rhs: Variable<Value>) -> Goal {
     return lhs != rhs.property
 }
+
+/// A goal that's satisfied when all the properties have different values.
+public func distinct<P: PropertyProtocol>(_ properties: [P]) -> Goal where P.Value: Hashable {
+    return goal(unequal(properties))
+}
+
+/// A goal that's satisfied when all the properties have different values.
+public func distinct<P: PropertyProtocol>(_ properties: P...) -> Goal where P.Value: Hashable {
+    return distinct(properties)
+}
+
 
 // MARK: - Logicial Conjunction
 
