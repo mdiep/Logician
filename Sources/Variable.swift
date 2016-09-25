@@ -8,9 +8,6 @@
 
 import Foundation
 
-/// A class used to provide identity to `Variable`s.
-private class Identity { }
-
 public protocol VariableProtocol: PropertyProtocol {
     /// The type of value that the variable represents.
     associatedtype Value
@@ -21,21 +18,14 @@ public protocol VariableProtocol: PropertyProtocol {
 
 /// An unknown value in a logic problem.
 public struct Variable<Value> {
-    /// The identity of the variable.
-    fileprivate let identity: Identity
+    /// A type-erased version of the variable.
+    internal var erased = AnyVariable()
     
     /// Create a new variable.
-    public init() {
-        identity = Identity()
-    }
+    public init() { }
     
     public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Property<NewValue> {
         return Property<NewValue>(self, transform)
-    }
-    
-    /// A type-erased version of the variable.
-    internal var erased: AnyVariable {
-        return AnyVariable(identity: identity)
     }
 }
 
@@ -49,12 +39,15 @@ extension Variable: VariableProtocol {
     }
 }
 
+/// A class used to provide identity to `Variable`s.
+private class Identity { }
+
 /// A type-erased, hashable `Variable`.
 internal struct AnyVariable: Hashable {
     fileprivate let identity: Identity
     
     /// Create a variable with an existing `Identity`.
-    fileprivate init(identity: Identity) {
+    fileprivate init(identity: Identity = Identity()) {
         self.identity = identity
     }
     
@@ -69,15 +62,5 @@ internal struct AnyVariable: Hashable {
 
 /// Test whether the variables have the same identity.
 internal func == <Left, Right>(lhs: Variable<Left>, rhs: Variable<Right>) -> Bool {
-    return lhs.identity === rhs.identity
-}
-
-/// Test whether the variables have the same identity.
-internal func == <Value>(lhs: Variable<Value>, rhs: AnyVariable) -> Bool {
-    return lhs.identity === rhs.identity
-}
-
-/// Test whether the variables have the same identity.
-internal func == <Value>(lhs: AnyVariable, rhs: Variable<Value>) -> Bool {
-    return lhs.identity === rhs.identity
+    return lhs.erased == rhs.erased
 }

@@ -18,10 +18,4 @@ class VariableTests: XCTestCase {
         XCTAssertFalse(var1 == var3)
         XCTAssertFalse(var2 == var3)
     }
-    
-    func testTypeErasure() {
-        let variable = Variable<Int>()
-        XCTAssertTrue(variable.erased == variable)
-        XCTAssertEqual(variable.erased, variable.erased)
-    }
 }
