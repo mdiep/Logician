@@ -75,38 +75,38 @@ class StateTests: XCTestCase {
     // MARK: - `State.unify(Variable<Value>, Value)`
     
     func testUnifyVariableAndValue() {
-        var context = State()
+        var state = State()
         let x = Variable<Int>()
-        try! context.unify(x, 4)
-        try! context.unify(x, 4)
-        XCTAssertEqual(context.value(of: x), 4)
-        XCTAssertThrowsError(try context.unify(x, 5))
+        try! state.unify(x, 4)
+        try! state.unify(x, 4)
+        XCTAssertEqual(state.value(of: x), 4)
+        XCTAssertThrowsError(try state.unify(x, 5))
     }
     
     func testUnifyVariableAndVariableWithExistingValue() {
-        var context = State()
+        var state = State()
         let x = Variable<Int>()
         let y = Variable<Int>()
-        try! context.unify(x, 4)
-        try! context.unify(x, y)
-        XCTAssertEqual(context.value(of: y), 4)
+        try! state.unify(x, 4)
+        try! state.unify(x, y)
+        XCTAssertEqual(state.value(of: y), 4)
     }
     
     func testUnifyVariableAndVariableWithNoExistingValue() {
-        var context = State()
+        var state = State()
         let x = Variable<Int>()
         let y = Variable<Int>()
-        try! context.unify(x, y)
-        try! context.unify(x, 4)
-        XCTAssertEqual(context.value(of: y), 4)
+        try! state.unify(x, y)
+        try! state.unify(x, 4)
+        XCTAssertEqual(state.value(of: y), 4)
     }
     
     func testUnifyVariableAndVariableWithConflictingValues() {
-        var context = State()
+        var state = State()
         let x = Variable<Int>()
         let y = Variable<Int>()
-        try! context.unify(x, 4)
-        try! context.unify(y, 5)
-        XCTAssertThrowsError(try context.unify(x, y))
+        try! state.unify(x, 4)
+        try! state.unify(y, 5)
+        XCTAssertThrowsError(try state.unify(x, y))
     }
 }
