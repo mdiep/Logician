@@ -73,10 +73,6 @@ public struct Variable<Value> {
         self.erased = erased
         self.bijection = bijection
     }
-    
-    public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Property<NewValue> {
-        return Property<NewValue>(self, transform)
-    }
 }
 
 extension Variable: VariableProtocol {
