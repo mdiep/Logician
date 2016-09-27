@@ -41,4 +41,12 @@ class SolveTests: XCTestCase {
         }
         XCTAssertEqual(xs.allValues(), [ 1, 3 ])
     }
+    
+    func testSolveWithBimap() {
+        let xs = solve { (x: Variable<Int>) in
+            let plus1 = x.bimap(forward: { $0 + 1 }, backward: { $0 - 1 })
+            return plus1 == 7 || plus1 == 12
+        }
+        XCTAssertEqual(xs.allValues(), [ 6, 11 ])
+    }
 }

@@ -14,9 +14,17 @@ public protocol PropertyProtocol {
     
     /// Extracts the property from the receiver.
     var property: Property<Value> { get }
-    
+}
+
+extension PropertyProtocol {
     /// Create a property by mapping over `self`.
-    func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Property<NewValue>
+    public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Property<NewValue> {
+        return Property<NewValue>(property.variable) { input in
+            let middle = self.property.transform(input) as! Value
+            let output = transform(middle)
+            return output
+        }
+    }
 }
 
 /// A property of an unknown value in a logic problem.
@@ -48,14 +56,6 @@ public struct Property<Value> {
 extension Property: PropertyProtocol {
     public var property: Property<Value> {
         return self
-    }
-    
-    public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Property<NewValue> {
-        return Property<NewValue>(variable) { input in
-            let middle = self.transform(input) as! Value
-            let output = transform(middle)
-            return output
-        }
     }
 }
 

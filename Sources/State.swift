@@ -15,9 +15,12 @@ public enum Error: Swift.Error {
 /// A partial or complete solution to a logic problem.
 public struct State {
     /// Information about a set of unified variables.
-    private class Info {
+    private struct Info {
         /// The value of the variables, if any.
         var value: Any?
+        
+        /// Functions that unify variables from bijections.
+        var transforms: [(State, Any) throws -> State] = []
         
         /// The value of the variables, if any, casted to `Value`.
         func value<Value>(_ type: Value.Type) -> Value? {
@@ -62,7 +65,10 @@ public struct State {
     /// - returns: The value of the variable, or `nil` if the value is unknown
     ///            or the variable isn't in the `State`.
     public func value<Value>(of variable: Variable<Value>) -> Value? {
-        return value(of: variable.erased).map { $0 as! Value }
+        // ! because asking for the value of a variable can't change it
+        return try! adding(bijection: variable.bijection)
+            .value(of: variable.erased)
+            .map { $0 as! Value }
     }
     
     /// Add a constraint to the state.
@@ -75,6 +81,30 @@ public struct State {
     internal func constraining(_ constraint: @escaping Constraint) throws -> State {
         var state = self
         try state.constrain(constraint)
+        return state
+    }
+    
+    /// Add a bijection to the state, unifying the variable it came from if the
+    /// other variable has a value.
+    private func adding(bijection: Bijection?) throws -> State {
+        guard let bijection = bijection else { return self }
+        if context[bijection.x] != nil { return self }
+        
+        var state = self
+        var info = Info()
+        info.transforms.append(bijection.toY)
+        state.context[bijection.x] = info
+        
+        let yInfo = state.context.updateValue(forKey: bijection.y) { info in
+            var info = info ?? Info()
+            info.transforms.append(bijection.toX)
+            return info
+        }
+        
+        if let y = yInfo?.value {
+            state = try bijection.toX(state, y)
+        }
+        
         return state
     }
     
@@ -107,17 +137,36 @@ public struct State {
     ///
     /// - note: `throws` if `variable` already has a different value.
     public func unifying<Value: Equatable>(_ variable: Variable<Value>, _ value: Value) throws -> State {
+        return try adding(bijection: variable.bijection)
+            .unifying(variable.erased, value)
+    }
+    
+    /// Unify a variable with a value.
+    ///
+    /// - parameters:
+    ///   - variable: The variable to unify
+    ///   - value: The value to give the variable
+    ///
+    /// - returns: The unified state.
+    ///
+    /// - note: `throws` if `variable` already has a different value.
+    internal func unifying<Value: Equatable>(_ variable: AnyVariable, _ value: Value) throws -> State {
         var state = self
-        try state.context.updateValue(forKey: variable.erased) { oldInfo in
-            if let oldValue = oldInfo?.value(Value.self), oldValue != value {
+        
+        var info = state.context[variable] ?? Info()
+        if let oldValue = info.value(Value.self) {
+            if oldValue != value {
                 throw Error.UnificationError
             }
+        } else {
+            info.value = value
+            state.context[variable] = info
             
-            let newInfo = oldInfo ?? Info()
-            newInfo.value = value
-            return newInfo
+            for transform in info.transforms {
+                state = try transform(state, value)
+            }
+            try state.verifyConstraints()
         }
-        try state.verifyConstraints()
         return state
     }
     
@@ -142,14 +191,28 @@ public struct State {
     ///
     /// - note: `throws` if `variable` already has a different value.
     public func unifying<Value: Equatable>(_ lhs: Variable<Value>, _ rhs: Variable<Value>) throws -> State {
-        var state = self
+        var state = try self
+            .adding(bijection: lhs.bijection)
+            .adding(bijection: rhs.bijection)
         try state.context.merge(lhs.erased, rhs.erased) { lhs, rhs in
             if let lhs = lhs?.value(Value.self), let rhs = rhs?.value(Value.self), lhs != rhs {
                 throw Error.UnificationError
             }
             
-            return lhs ?? rhs
+            var info = Info()
+            info.value = lhs?.value ?? rhs?.value
+            info.transforms.append(contentsOf: lhs?.transforms ?? [])
+            info.transforms.append(contentsOf: rhs?.transforms ?? [])
+            return info
         }
+        
+        let info = state.context[lhs.erased]!
+        if let value = info.value {
+            for transform in info.transforms {
+                state = try transform(state, value)
+            }
+        }
+        
         try state.verifyConstraints()
         return state
     }
