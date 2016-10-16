@@ -39,7 +39,10 @@ internal struct Bijection {
 
 extension VariableProtocol where Value: Equatable {
     /// Create a new variable that's related to this one by a transformation.
-    public func bimap<NewValue: Equatable>(forward: @escaping (Value) -> NewValue, backward: @escaping (NewValue) -> Value) -> Variable<NewValue> {
+    public func bimap<A: Equatable>(
+        forward: @escaping (Value) -> A,
+        backward: @escaping (A) -> Value
+    ) -> Variable<A> {
         let variable = AnyVariable()
         let bijection = Bijection(
             x: variable,
@@ -48,10 +51,10 @@ extension VariableProtocol where Value: Equatable {
                 return try state.unifying(variable, forward(value as! Value))
             },
             toY: { state, value in
-                return try state.unifying(self.variable, backward(value as! NewValue))
+                return try state.unifying(self.variable, backward(value as! A))
             }
         )
-        return Variable<NewValue>(variable, bijection: bijection)
+        return Variable<A>(variable, bijection: bijection)
     }
 }
 
