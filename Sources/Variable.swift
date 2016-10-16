@@ -23,15 +23,15 @@ internal struct Bijection {
     typealias Function = (State) throws -> State
     
     /// The variable that `bimap` was called on.
-    var y: AnyVariable
+    var source: AnyVariable
     
-    /// A function that takes state and attempts to unify `x` with the
-    /// corresponding value.
-    var unifyX: Function
+    /// A function that takes a state and attempts to unify the derived variable
+    /// with the corresponding value.
+    var unifyDerived: Function
     
-    /// A function that takes state and attempts to unify `y` with the
+    /// A function that takes a state and attempts to unify `source` with the
     /// corresponding value.
-    var unifyY: Function
+    var unifySource: Function
 }
 
 private func unify<From: Equatable, To: Equatable>(
@@ -52,9 +52,9 @@ extension VariableProtocol where Value: Equatable {
         let oldVariable = variable.erased
         let newVariable = AnyVariable()
         let bijection = Bijection(
-            y: oldVariable,
-            unifyX: unify(oldVariable, newVariable, forward),
-            unifyY: unify(newVariable, oldVariable, backward)
+            source: oldVariable,
+            unifyDerived: unify(oldVariable, newVariable, forward),
+            unifySource: unify(newVariable, oldVariable, backward)
         )
         return Variable<A>(newVariable, bijection: bijection)
     }

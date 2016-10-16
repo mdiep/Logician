@@ -92,16 +92,16 @@ public struct State {
         
         var state = self
         var info = Info()
-        info.transforms.append(bijection.unifyY)
+        info.transforms.append(bijection.unifySource)
         state.context[variable] = info
         
-        state.context.updateValue(forKey: bijection.y) { info in
+        state.context.updateValue(forKey: bijection.source) { info in
             var info = info ?? Info()
-            info.transforms.append(bijection.unifyX)
+            info.transforms.append(bijection.unifyDerived)
             return info
         }
         
-        return try bijection.unifyX(state)
+        return try bijection.unifyDerived(state)
     }
     
     /// Verify that all the constraints in the state have been maintained,
