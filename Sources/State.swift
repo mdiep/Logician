@@ -66,7 +66,7 @@ public struct State {
     ///            or the variable isn't in the `State`.
     public func value<Value>(of variable: Variable<Value>) -> Value? {
         // ! because asking for the value of a variable can't change it
-        return try! adding(bijection: variable.bijection)
+        return try! adding(bijection: variable.bijection, from: variable.erased)
             .value(of: variable.erased)
             .map { $0 as! Value }
     }
@@ -86,14 +86,14 @@ public struct State {
     
     /// Add a bijection to the state, unifying the variable it came from if the
     /// other variable has a value.
-    private func adding(bijection: Bijection?) throws -> State {
+    private func adding(bijection: Bijection?, from variable: AnyVariable) throws -> State {
         guard let bijection = bijection else { return self }
-        if context[bijection.x] != nil { return self }
+        if context[variable] != nil { return self }
         
         var state = self
         var info = Info()
         info.transforms.append(bijection.unifyY)
-        state.context[bijection.x] = info
+        state.context[variable] = info
         
         state.context.updateValue(forKey: bijection.y) { info in
             var info = info ?? Info()
@@ -133,7 +133,7 @@ public struct State {
     ///
     /// - note: `throws` if `variable` already has a different value.
     public func unifying<Value: Equatable>(_ variable: Variable<Value>, _ value: Value) throws -> State {
-        return try adding(bijection: variable.bijection)
+        return try adding(bijection: variable.bijection, from: variable.erased)
             .unifying(variable.erased, value)
     }
     
@@ -188,8 +188,8 @@ public struct State {
     /// - note: `throws` if `variable` already has a different value.
     public func unifying<Value: Equatable>(_ lhs: Variable<Value>, _ rhs: Variable<Value>) throws -> State {
         var state = try self
-            .adding(bijection: lhs.bijection)
-            .adding(bijection: rhs.bijection)
+            .adding(bijection: lhs.bijection, from: lhs.erased)
+            .adding(bijection: rhs.bijection, from: rhs.erased)
         try state.context.merge(lhs.erased, rhs.erased) { lhs, rhs in
             if let lhs = lhs?.value(Value.self), let rhs = rhs?.value(Value.self), lhs != rhs {
                 throw Error.UnificationError

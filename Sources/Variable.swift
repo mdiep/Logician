@@ -22,9 +22,6 @@ internal struct Bijection {
     /// variable is unified based on the value of another variable.
     typealias Function = (State) throws -> State
     
-    /// The variable that was created with `bimap`.
-    var x: AnyVariable
-    
     /// The variable that `bimap` was called on.
     var y: AnyVariable
     
@@ -55,7 +52,6 @@ extension VariableProtocol where Value: Equatable {
         let oldVariable = variable.erased
         let newVariable = AnyVariable()
         let bijection = Bijection(
-            x: newVariable,
             y: oldVariable,
             unifyX: unify(oldVariable, newVariable, forward),
             unifyY: unify(newVariable, oldVariable, backward)
