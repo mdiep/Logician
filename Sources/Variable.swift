@@ -18,9 +18,9 @@ public protocol VariableProtocol: PropertyProtocol {
 
 /// Type-erased information about a bijection created with `bimap`.
 internal struct Bijection {
-    /// A function that takes a state and a value and attempts to return a state
-    /// where a variable is unified with that value.
-    typealias Function = (State, Any) throws -> State
+    /// A function that takes a state and attempts to return a state where a
+    /// variable is unified based on the value of another variable.
+    typealias Function = (State) throws -> State
     
     /// The variable that was created with `bimap`.
     var x: AnyVariable
@@ -28,13 +28,22 @@ internal struct Bijection {
     /// The variable that `bimap` was called on.
     var y: AnyVariable
     
-    /// A function that takes state and a value of `y`, and attempts to unify
-    /// `x` with the corresponding value.
-    var toX: Function
+    /// A function that takes state and attempts to unify `x` with the
+    /// corresponding value.
+    var unifyX: Function
     
-    /// A function that takes state and a value of `x`, and attempts to unify
-    /// `y` with the corresponding value.
-    var toY: Function
+    /// A function that takes state and attempts to unify `y` with the
+    /// corresponding value.
+    var unifyY: Function
+}
+
+private func unify<From: Equatable, To: Equatable>(
+    _ lhs: AnyVariable, _ rhs: AnyVariable, _ transform: @escaping (From) -> To
+) -> (State) throws -> State {
+    return { state in
+        guard let value = state.value(of: lhs) else { return state }
+        return try state.unifying(rhs, transform(value as! From))
+    }
 }
 
 extension VariableProtocol where Value: Equatable {
@@ -43,18 +52,15 @@ extension VariableProtocol where Value: Equatable {
         forward: @escaping (Value) -> A,
         backward: @escaping (A) -> Value
     ) -> Variable<A> {
-        let variable = AnyVariable()
+        let oldVariable = variable.erased
+        let newVariable = AnyVariable()
         let bijection = Bijection(
-            x: variable,
-            y: self.variable.erased,
-            toX: { state, value in
-                return try state.unifying(variable, forward(value as! Value))
-            },
-            toY: { state, value in
-                return try state.unifying(self.variable, backward(value as! A))
-            }
+            x: newVariable,
+            y: oldVariable,
+            unifyX: unify(oldVariable, newVariable, forward),
+            unifyY: unify(newVariable, oldVariable, backward)
         )
-        return Variable<A>(variable, bijection: bijection)
+        return Variable<A>(newVariable, bijection: bijection)
     }
 }
 

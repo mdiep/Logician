@@ -20,7 +20,7 @@ public struct State {
         var value: Any?
         
         /// Functions that unify variables from bijections.
-        var transforms: [(State, Any) throws -> State] = []
+        var transforms: [(State) throws -> State] = []
         
         /// The value of the variables, if any, casted to `Value`.
         func value<Value>(_ type: Value.Type) -> Value? {
@@ -53,7 +53,7 @@ public struct State {
     ///
     /// - returns: The value of the variable, or `nil` if the value is unknown
     ///            or the variable isn't in the `State`.
-    private func value(of variable: AnyVariable) -> Any? {
+    internal func value(of variable: AnyVariable) -> Any? {
         return context[variable]?.value
     }
     
@@ -92,20 +92,16 @@ public struct State {
         
         var state = self
         var info = Info()
-        info.transforms.append(bijection.toY)
+        info.transforms.append(bijection.unifyY)
         state.context[bijection.x] = info
         
-        let yInfo = state.context.updateValue(forKey: bijection.y) { info in
+        state.context.updateValue(forKey: bijection.y) { info in
             var info = info ?? Info()
-            info.transforms.append(bijection.toX)
+            info.transforms.append(bijection.unifyX)
             return info
         }
         
-        if let y = yInfo?.value {
-            state = try bijection.toX(state, y)
-        }
-        
-        return state
+        return try bijection.unifyX(state)
     }
     
     /// Verify that all the constraints in the state have been maintained,
@@ -163,7 +159,7 @@ public struct State {
             state.context[variable] = info
             
             for transform in info.transforms {
-                state = try transform(state, value)
+                state = try transform(state)
             }
             try state.verifyConstraints()
         }
@@ -207,10 +203,8 @@ public struct State {
         }
         
         let info = state.context[lhs.erased]!
-        if let value = info.value {
-            for transform in info.transforms {
-                state = try transform(state, value)
-            }
+        for transform in info.transforms {
+            state = try transform(state)
         }
         
         try state.verifyConstraints()
