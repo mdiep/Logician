@@ -32,27 +32,17 @@ internal struct Bijection {
     /// A function that takes a state and attempts to unify `source` with the
     /// corresponding value.
     var unifySource: Function
-    
-    init<Source: Equatable, Derived: Equatable>(
-        _ source: Variable<Source>,
-        _ derived: AnyVariable,
-        _ forward: @escaping (Source) -> Derived,
-        _ backward: @escaping (Derived) -> Source
-    ) {
-        func unify<From: Equatable, To: Equatable>(
-            _ lhs: AnyVariable,
-            _ rhs: AnyVariable,
-            _ transform: @escaping (From) -> To
-            ) -> (State) throws -> State {
-            return { state in
-                guard let value = state.value(of: lhs) else { return state }
-                return try state.unifying(rhs, transform(value as! From))
-            }
-        }
-        
-        self.source = source.erased
-        unifyDerived = unify(source.erased, derived, forward)
-        unifySource = unify(derived, source.erased, backward)
+}
+
+
+private func unify<From: Equatable, To: Equatable>(
+    _ lhs: AnyVariable,
+    _ rhs: AnyVariable,
+    _ transform: @escaping (From) -> To
+    ) -> (State) throws -> State {
+    return { state in
+        guard let value = state.value(of: lhs) else { return state }
+        return try state.unifying(rhs, transform(value as! From))
     }
 }
 
@@ -62,9 +52,14 @@ extension VariableProtocol where Value: Equatable {
         forward: @escaping (Value) -> A,
         backward: @escaping (A) -> Value
     ) -> Variable<A> {
-        let newVariable = AnyVariable()
-        let bijection = Bijection(variable, newVariable, forward, backward)
-        return Variable<A>(newVariable, bijection: bijection)
+        let source = variable.erased
+        let a = AnyVariable()
+        let bijection = Bijection(
+            source: source,
+            unifyDerived: unify(source, a, forward),
+            unifySource: unify(a, source, backward)
+        )
+        return Variable<A>(a, bijection: bijection)
     }
 }
 
