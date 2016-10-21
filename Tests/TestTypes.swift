@@ -26,7 +26,6 @@ struct Point: Equatable {
 extension VariableProtocol where Value == Point {
     private var parts: (Variable<Int>, Variable<Int>) {
         return bimap(
-            identity: "\(#file):\(#line):\(#function)",
             forward: { ($0.x, $0.y) },
             backward: { Point($0.0, $0.1) }
         )

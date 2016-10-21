@@ -80,6 +80,27 @@ extension VariableProtocol {
             Variable<B>(b, bijections: bijections)
         )
     }
+    
+    /// Create a new variable that's related to this one by a transformation.
+    ///
+    /// - note: The location of this bimap in the source code determines its
+    ///         identity. If you need it to live in multiple locations, you need
+    ///         to specify an explicit identity.
+    ///
+    /// - parameters:
+    ///   - identity: A string that uniquely identifies this bimap.
+    ///   - forward: A block that maps this value into two values.
+    ///   - backward: A block that maps 2 values back into the this value.
+    public func bimap<A: Hashable, B: Hashable>(
+        file: StaticString = #file,
+        line: Int = #line,
+        function: StaticString = #function,
+        forward: @escaping (Value) -> (A, B),
+        backward: @escaping ((A, B)) -> Value
+    ) -> (Variable<A>, Variable<B>) {
+        let identity = "\(file):\(line):\(function)"
+        return bimap(identity: identity, forward: forward, backward: backward)
+    }
 }
 
 /// An unknown value in a logic problem.
