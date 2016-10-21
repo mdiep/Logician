@@ -55,7 +55,7 @@ extension VariableProtocol {
     /// - parameters:
     ///   - identity: A string that uniquely identifies this bimap.
     ///   - forward: A block that maps this value into two values.
-    ///   - backward: A block that maps 2 values back into the this value.
+    ///   - backward: A block that maps two values back into the this value.
     public func bimap<A: Hashable, B: Hashable>(
         identity: String,
         forward: @escaping (Value) -> (A, B),
@@ -90,7 +90,7 @@ extension VariableProtocol {
     /// - parameters:
     ///   - identity: A string that uniquely identifies this bimap.
     ///   - forward: A block that maps this value into two values.
-    ///   - backward: A block that maps 2 values back into the this value.
+    ///   - backward: A block that maps two values back into the this value.
     public func bimap<A: Hashable, B: Hashable>(
         file: StaticString = #file,
         line: Int = #line,
