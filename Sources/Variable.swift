@@ -65,10 +65,10 @@ extension VariableProtocol {
         let a = AnyVariable(A.self, source, key: "\(identity).0")
         let b = AnyVariable(B.self, source, key: "\(identity).1")
         let unifySource: Bijection = { state in
-            guard let aValue = state.value(of: a), let bValue = state.value(of: b) else {
+            guard let a = state.value(of: a), let b = state.value(of: b) else {
                 return state
             }
-            return try state.unifying(source, backward((aValue as! A, bValue as! B)))
+            return try state.unifying(source, backward((a as! A, b as! B)))
         }
         let bijections = [
             a: biject(source, a) { forward($0).0 },
