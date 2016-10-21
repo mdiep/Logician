@@ -49,4 +49,17 @@ class SolveTests: XCTestCase {
         }
         XCTAssertEqual(xs.allValues(), [ 6, 11 ])
     }
+    
+    func testSolveWithBimap2() {
+        let points = solve { (p: Variable<Point>) in
+            let q = Variable<Point>()
+            return any(
+                p == q && p.x == 3 && q.y == 1,
+                p.x == 4 && p == q && q.y == 2,
+                p.x == 5 && q.y == 3 && p == q,
+                p.x == 6 && p.y == 4 && q.x == 3 && p == q
+            )
+        }
+        XCTAssertEqual(points.allValues(), [ Point(3, 1), Point(4, 2), Point(5, 3) ])
+    }
 }

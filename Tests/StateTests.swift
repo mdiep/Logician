@@ -40,6 +40,23 @@ class StateTests: XCTestCase {
         XCTAssertEqual(state.value(of: y), 4)
     }
     
+    func testValueOfBimapped2Variable() {
+        var state = State()
+        let p1 = Variable<Point>()
+        let p2 = Variable<Point>()
+        let p3 = Variable<Point>()
+        
+        try! state.unify(p1, p2)
+        try! state.unify(p1.x, 2)
+        try! state.unify(p2.y, 4)
+        XCTAssertEqual(state.value(of: p1), Point(2, 4))
+        XCTAssertEqual(state.value(of: p2), Point(2, 4))
+        
+        try! state.unify(p3, Point(7, 9))
+        XCTAssertEqual(state.value(of: p3.x), 7)
+        XCTAssertEqual(state.value(of: p3.y), 9)
+    }
+    
     // MARK: - `State.constrain()`
     
     func testConstrainBeforeUnifyingValue() {
@@ -211,5 +228,19 @@ class StateTests: XCTestCase {
         try! state.unify(z, 4)
         
         XCTAssertThrowsError(try state.unify(y, 4))
+    }
+    
+    func testUnifyBimapped2VariablesWithConflictingValues() {
+        var state = State()
+        let p = Variable<Point>()
+        let q = Variable<Point>()
+        let r = Variable<Point>()
+        
+        try! state.unify(p.x, 4)
+        try! state.unify(q.x, 3)
+        try! state.unify(r, Point(0, 0))
+        
+        XCTAssertThrowsError(try state.unify(p, q))
+        XCTAssertThrowsError(try state.unify(p, r))
     }
 }

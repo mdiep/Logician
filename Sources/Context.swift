@@ -94,6 +94,7 @@ internal struct Context<Key: Hashable, Value> {
         let oldValue = oldNode?.value
         let newValue = try transform(oldValue)
         let allKeys = oldNode?.keys ?? Set([ key ])
+        
         let newNode = Node(keys: allKeys, value: newValue)
         for key in allKeys {
             values[key] = newNode
