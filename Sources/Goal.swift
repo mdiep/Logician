@@ -65,6 +65,20 @@ public func == <P: PropertyProtocol>(lhs: P, rhs: P) -> Goal where P.Value: Equa
     return goal(equal([ lhs, rhs ]))
 }
 
+extension Variable where Value: Equatable {
+    /// A goal that's satisfied when a variable is one of a number of values.
+    public func `in`<C: Collection>(_ values: C) -> Goal where C.Iterator.Element == Value {
+        return any(values.map { self == $0 })
+    }
+}
+
+extension Property where Value: Equatable {
+    /// A goal that's satisfied when a property is one of a number of values.
+    public func `in`<C: Collection>(_ values: C) -> Goal where C.Iterator.Element == Value {
+        return any(values.map { self == $0 })
+    }
+}
+
 
 // MARK: - Inequality
 

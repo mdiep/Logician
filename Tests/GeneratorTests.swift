@@ -20,6 +20,16 @@ class GeneratorTests: XCTestCase {
         XCTAssertNil(iterator.next())
     }
     
+    func testMap() {
+        let iterator = Generator(values: [ 1, 1, 2, 3, 5 ]).map { $0 - 1 }
+        XCTAssertEqual(iterator.next(), 0)
+        XCTAssertEqual(iterator.next(), 0)
+        XCTAssertEqual(iterator.next(), 1)
+        XCTAssertEqual(iterator.next(), 2)
+        XCTAssertEqual(iterator.next(), 4)
+        XCTAssertNil(iterator.next())
+    }
+    
     func testInterleaving() {
         let iterator = Generator(interleaving: [
             Generator(values: [  0,  1 ]),

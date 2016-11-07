@@ -62,4 +62,16 @@ class SolveTests: XCTestCase {
         }
         XCTAssertEqual(points.allValues(), [ Point(3, 1), Point(4, 2), Point(5, 3) ])
     }
+    
+    func testSolveWithNVariables() {
+        let xs = solve { (variables: inout [Variable<Int>]) in
+            let x = Variable<Int>()
+            let y = Variable<Int>()
+            variables = [x, y]
+            return x == 4 && y == 3
+        }
+        let allValues = xs.allValues()
+        XCTAssertEqual(allValues.count, 1)
+        XCTAssertEqual(allValues[0], [4, 3])
+    }
 }
