@@ -56,6 +56,19 @@ class GoalTests: XCTestCase {
         XCTAssertNil(iterator.next())
     }
     
+    // MARK: - in
+    
+    func testInWithVariable() {
+        let iterator = x.in([2, 3, 4, 7])(initial)
+        
+        XCTAssertEqual(iterator.next()!.value(of: x), 2)
+        XCTAssertEqual(iterator.next()!.value(of: x), 3)
+        XCTAssertEqual(iterator.next()!.value(of: x), 4)
+        XCTAssertEqual(iterator.next()!.value(of: x), 7)
+        
+        XCTAssertNil(iterator.next())
+    }
+    
     // MARK: - All
     
     func testAllSucceeds() {
