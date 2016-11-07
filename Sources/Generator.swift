@@ -29,7 +29,9 @@ public class Generator<Value>: IteratorProtocol {
     public func next() -> Value? {
         return iterator.next()
     }
-    
+}
+
+extension Generator {
     /// Returns all the remaining values in the generator.
     public func allValues() -> [Value] {
         var values: [Value] = []
@@ -37,6 +39,13 @@ public class Generator<Value>: IteratorProtocol {
             values.append(v)
         }
         return values
+    }
+    
+    /// Maps values in the generator to new values.
+    public func map<NewValue>(_ transform: @escaping (Value) -> NewValue) -> Generator<NewValue> {
+        return Generator<NewValue> {
+            return self.next().map(transform)
+        }
     }
 }
 
