@@ -46,6 +46,10 @@ The following are good resources for learning more about logic programming:
 - [μKanren: A Minimal Functional Core for Relational Programming (pdf)](http://webyrd.net/scheme-2013/papers/HemannMuKanren2013.pdf) by Jason Hemann and Daniel P. Friedman
 
     This paper explores what forms the minimal logic programming language in Scheme. It strips away the complexity of more capable solvers to expose the core idea.
+    
+- [Kanren.swift](https://github.com/mdiep/Kanren.swift)
+
+    Swift playgrounds with implementations of various Kanrens.
 
 - [Hello, declarative world](http://codon.com/hello-declarative-world) by **[@tomstuart](https://github.com/tomstuart/)**
 
