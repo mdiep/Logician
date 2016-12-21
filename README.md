@@ -43,6 +43,10 @@ Logician is available under the [MIT License](LICENSE.md)
 ## Learn More
 The following are good resources for learning more about logic programming:
 
+- [Logic Programming in Swift](http://matt.diephouse.com/2016/12/logic-programming-in-swift/)
+
+    An explanation of how logic programming works in Swift.
+
 - [μKanren: A Minimal Functional Core for Relational Programming (pdf)](http://webyrd.net/scheme-2013/papers/HemannMuKanren2013.pdf) by Jason Hemann and Daniel P. Friedman
 
     This paper explores what forms the minimal logic programming language in Scheme. It strips away the complexity of more capable solvers to expose the core idea.
