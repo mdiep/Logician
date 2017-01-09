@@ -1,0 +1,42 @@
+language: objective-c
+osx_image: xcode8.2
+branches:
+  only:
+    - master
+xcode_workspace: Logician.xcworkspace
+script:
+  - script/cibuild
+matrix:
+  include:
+    - xcode_scheme: Logician-macOS
+      env:
+        - XCODE_SDK=macosx
+        - XCODE_ACTION="build test"
+        - XCODE_DESTINATION="arch=x86_64"
+    - xcode_scheme: Logician-macOS
+      env:
+        - XCODE_SDK=macosx
+        - XCODE_ACTION="build"
+        - XCODE_DESTINATION="arch=x86_64"
+        - XCODE_PLAYGROUND="Playgrounds/N Queens.playground"
+        - JOB=NQueens.playground
+    - xcode_scheme: Logician-macOS
+      env:
+        - XCODE_SDK=macosx
+        - XCODE_ACTION="build"
+        - XCODE_DESTINATION="arch=x86_64"
+        - XCODE_PLAYGROUND="Playgrounds/Sudoku.playground"
+        - JOB=Sudoku.playground
+    - os: linux
+      language: generic
+      sudo: required
+      dist: trusty
+      before_install:
+        - eval "$(curl -sL https://gist.githubusercontent.com/kylef/5c0475ff02b7c7671d2a/raw/9f442512a46d7a2af7b850d65a7e9bd31edfb09b/swiftenv-install.sh)"
+      script:
+        - swift build
+        - swift test
+      env: JOB=SWIFTPM_LINUX
+notifications:
+  email: false
+

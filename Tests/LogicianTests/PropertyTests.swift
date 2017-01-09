@@ -24,4 +24,11 @@ class PropertyTests: XCTestCase {
         XCTAssertTrue(property.erased == property)
         XCTAssertEqual(property.erased, property.erased)
     }
+
+    static var allTests: [(String, (PropertyTests) -> () throws -> Void)] {
+        return [
+            ("testIdentity", testIdentity),
+            ("testTypeErasure", testTypeErasure),
+        ]
+    }
 }

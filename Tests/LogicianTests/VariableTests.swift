@@ -18,4 +18,10 @@ class VariableTests: XCTestCase {
         XCTAssertFalse(var1 == var3)
         XCTAssertFalse(var2 == var3)
     }
+
+    static var allTests: [(String, (VariableTests) -> () throws -> Void)] {
+        return [
+            ("testIdentity", testIdentity),
+        ]
+    }
 }
