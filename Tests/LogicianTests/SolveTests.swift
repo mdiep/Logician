@@ -74,4 +74,15 @@ class SolveTests: XCTestCase {
         XCTAssertEqual(allValues.count, 1)
         XCTAssertEqual(allValues[0], [4, 3])
     }
+
+    static var allTests: [(String, (SolveTests) -> () throws -> Void)] {
+        return [
+            ("testSolve", testSolve),
+            ("testSolveWithProperty", testSolveWithProperty),
+            ("testSolveWithInequality", testSolveWithInequality),
+            ("testSolveWithBimap", testSolveWithBimap),
+            ("testSolveWithBimap2", testSolveWithBimap2),
+            ("testSolveWithNVariables", testSolveWithNVariables),
+        ]
+    }
 }

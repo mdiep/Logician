@@ -243,4 +243,29 @@ class StateTests: XCTestCase {
         XCTAssertThrowsError(try state.unify(p, q))
         XCTAssertThrowsError(try state.unify(p, r))
     }
+
+    static var allTests: [(String, (StateTests) -> () throws -> Void)] {
+        return [
+            ("testValueOfProperty", testValueOfProperty),
+            ("testValueOfBimappedVariable", testValueOfBimappedVariable),
+            ("testValueOfBimapped2Variable", testValueOfBimapped2Variable),
+            ("testConstrainBeforeUnifyingValue", testConstrainBeforeUnifyingValue),
+            ("testConstrainAfterUnifyingValue", testConstrainAfterUnifyingValue),
+            ("testConstrainAfterUnifyingConflictingValue", testConstrainAfterUnifyingConflictingValue),
+            ("testConstrainBeforeUnifyingConflictingValue", testConstrainBeforeUnifyingConflictingValue),
+            ("testConstrainBeforeUnifyingConflictingVariable", testConstrainBeforeUnifyingConflictingVariable),
+            ("testUnifyVariableAndValue", testUnifyVariableAndValue),
+            ("testUnifyBimappedVariableAndValue", testUnifyBimappedVariableAndValue),
+            ("testUnifyVariableAndVariableWithExistingValue", testUnifyVariableAndVariableWithExistingValue),
+            ("testUnifyBimappedVariableAndVariableWithExistingValue", testUnifyBimappedVariableAndVariableWithExistingValue),
+            ("testUnifyVariableAndBimappedVariableWithExistingValue", testUnifyVariableAndBimappedVariableWithExistingValue),
+            ("testUnifyVariableAndVariableWithNoExistingValue", testUnifyVariableAndVariableWithNoExistingValue),
+            ("testUnifyVariableAndBimappedVariableWithNoExistingValue", testUnifyVariableAndBimappedVariableWithNoExistingValue),
+            ("testUnifyVariableAndVariableWithConflictingValues", testUnifyVariableAndVariableWithConflictingValues),
+            ("testUnifyVariableAndBimappedVariableWithConflictingValues", testUnifyVariableAndBimappedVariableWithConflictingValues),
+            ("testUnifyBimappedVariablesWithConflictingValues", testUnifyBimappedVariablesWithConflictingValues),
+            ("testUnifyBimapped2VariablesWithConflictingValues", testUnifyBimapped2VariablesWithConflictingValues),
+        ]
+    }
 }
+

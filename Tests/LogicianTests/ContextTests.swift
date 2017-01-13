@@ -89,4 +89,14 @@ class ContextTests: XCTestCase {
         XCTAssertEqual(original[key1], 4)
         XCTAssertEqual(copy[key1], 5)
     }
+
+    static var allTests: [(String, (ContextTests) -> () throws -> Void)] {
+        return [
+            ("testUpdateValueForKey", testUpdateValueForKey),
+            ("testRemoveValueForKey", testRemoveValueForKey),
+            ("testUpdateValueForKeyTransform", testUpdateValueForKeyTransform),
+            ("testMerge", testMerge),
+            ("testCopiesAreIndependent", testCopiesAreIndependent),
+        ]
+    }
 }

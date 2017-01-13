@@ -134,6 +134,15 @@ class ConstraintEqualTests: XCTestCase {
             try! $0.unify(y, 7)
         }
     }
+    
+    static var allTests: [(String, (ConstraintEqualTests) -> () throws -> Void)] {
+        return [
+            ("testSuccessWithValue", testSuccessWithValue),
+            ("testFailureWithValue", testFailureWithValue),
+            ("testSuccessWithoutValue", testSuccessWithoutValue),
+            ("testFailureWithoutValue", testFailureWithoutValue),
+        ]
+    }
 }
 
 class ConstraintUnequalTests: XCTestCase {
@@ -210,4 +219,14 @@ class ConstraintUnequalTests: XCTestCase {
             try! $0.unify(y, 42)
         }
     }
+
+    static var allTests: [(String, (ConstraintUnequalTests) -> () throws -> Void)] {
+        return [
+            ("testSuccessWithValue", testSuccessWithValue),
+            ("testFailureWithValue", testFailureWithValue),
+            ("testSuccessWithoutValue", testSuccessWithoutValue),
+            ("testFailureWithoutValue", testFailureWithoutValue),
+        ]
+    }
 }
+

@@ -115,4 +115,16 @@ class GoalTests: XCTestCase {
         
         XCTAssertNil(iterator.next())
     }
+
+    static var allTests: [(String, (GoalTests) -> () throws -> Void)] {
+        return [
+            ("testEqualityWithVariableAndValue", testEqualityWithVariableAndValue),
+            ("testEqualityWithValueAndVariable", testEqualityWithValueAndVariable),
+            ("testEqualityWithVariableAndVariable", testEqualityWithVariableAndVariable),
+            ("testInWithVariable", testInWithVariable),
+            ("testAllSucceeds", testAllSucceeds),
+            ("testAllFails", testAllFails),
+            ("testAny", testAny),
+        ]
+    }
 }

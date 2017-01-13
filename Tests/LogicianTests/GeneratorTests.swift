@@ -64,4 +64,14 @@ class GeneratorTests: XCTestCase {
         XCTAssertEqual(iterator.next(), 32)
         XCTAssertNil(iterator.next())
     }
+
+    static var allTests: [(String, (GeneratorTests) -> () throws -> Void)] {
+        return [
+            ("testValues", testValues),
+            ("testMap", testMap),
+            ("testInterleaving", testInterleaving),
+            ("testFlatMapOfOptionals", testFlatMapOfOptionals),
+            ("testFlatMapOfGenerators", testFlatMapOfGenerators),
+        ]
+    }
 }
