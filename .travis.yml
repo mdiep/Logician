@@ -27,6 +27,11 @@ matrix:
         - XCODE_DESTINATION="arch=x86_64"
         - XCODE_PLAYGROUND="Playgrounds/Sudoku.playground"
         - JOB=Sudoku.playground
+    - xcode_scheme: Logician-iOS
+      env:
+        - XCODE_SDK=iphonesimulator
+        - XCODE_ACTION="build-for-testing test-without-building"
+        - XCODE_DESTINATION="platform=iOS Simulator,name=iPhone 6s,OS=10.1"
     - os: linux
       language: generic
       sudo: required
