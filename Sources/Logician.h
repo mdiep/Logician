@@ -6,7 +6,7 @@
 //  Copyright © 2016 Matt Diephouse. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for Logician.
 FOUNDATION_EXPORT double LogicianVersionNumber;
