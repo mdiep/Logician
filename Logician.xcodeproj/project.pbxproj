@@ -75,7 +75,7 @@
 		46FA30B41E238AA9008C4F0E /* TestTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TestTypes.swift; path = Tests/LogicianTests/TestTypes.swift; sourceTree = "<group>"; };
 		46FA30B51E238AA9008C4F0E /* VariableTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VariableTests.swift; path = Tests/LogicianTests/VariableTests.swift; sourceTree = "<group>"; };
 		84F407161E29B9EC00ADD734 /* Logician.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Logician.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		84F4071E1E29B9EC00ADD734 /* Logician-iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Logician-iOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84F4071E1E29B9EC00ADD734 /* LogicianTests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "LogicianTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BE096FE61D8DA76B00FE5A3A /* Constraint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constraint.swift; sourceTree = "<group>"; };
 		BE096FEA1D8E30A400FE5A3A /* Generator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Generator.swift; sourceTree = "<group>"; };
 		BE3D361D1D7880BC00729A4C /* Logician.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Logician.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -156,7 +156,7 @@
 				BE3D361D1D7880BC00729A4C /* Logician.framework */,
 				BE3D36261D7880BD00729A4C /* LogicianTests-macOS.xctest */,
 				84F407161E29B9EC00ADD734 /* Logician.framework */,
-				84F4071E1E29B9EC00ADD734 /* Logician-iOSTests.xctest */,
+				84F4071E1E29B9EC00ADD734 /* LogicianTests-iOS.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,9 +218,9 @@
 			productReference = 84F407161E29B9EC00ADD734 /* Logician.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		84F4071D1E29B9EC00ADD734 /* Logician-iOSTests */ = {
+		84F4071D1E29B9EC00ADD734 /* LogicianTests-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 84F4072A1E29B9EC00ADD734 /* Build configuration list for PBXNativeTarget "Logician-iOSTests" */;
+			buildConfigurationList = 84F4072A1E29B9EC00ADD734 /* Build configuration list for PBXNativeTarget "LogicianTests-iOS" */;
 			buildPhases = (
 				84F4071A1E29B9EC00ADD734 /* Sources */,
 				84F4071B1E29B9EC00ADD734 /* Frameworks */,
@@ -231,9 +231,9 @@
 			dependencies = (
 				84F407211E29B9EC00ADD734 /* PBXTargetDependency */,
 			);
-			name = "Logician-iOSTests";
+			name = "LogicianTests-iOS";
 			productName = "Logician-iOSTests";
-			productReference = 84F4071E1E29B9EC00ADD734 /* Logician-iOSTests.xctest */;
+			productReference = 84F4071E1E29B9EC00ADD734 /* LogicianTests-iOS.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		BE3D361C1D7880BC00729A4C /* Logician-macOS */ = {
@@ -316,7 +316,7 @@
 				BE3D361C1D7880BC00729A4C /* Logician-macOS */,
 				BE3D36251D7880BD00729A4C /* LogicianTests-macOS */,
 				84F407151E29B9EC00ADD734 /* Logician-iOS */,
-				84F4071D1E29B9EC00ADD734 /* Logician-iOSTests */,
+				84F4071D1E29B9EC00ADD734 /* LogicianTests-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -688,7 +688,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		84F4072A1E29B9EC00ADD734 /* Build configuration list for PBXNativeTarget "Logician-iOSTests" */ = {
+		84F4072A1E29B9EC00ADD734 /* Build configuration list for PBXNativeTarget "LogicianTests-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				84F4072B1E29B9EC00ADD734 /* Debug */,
