@@ -445,7 +445,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Logician-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diephouse.matt.Logician;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -468,7 +468,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Logician-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diephouse.matt.Logician;
 				PRODUCT_NAME = "$(PROJECT_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -487,7 +487,7 @@
 				INFOPLIST_FILE = Tests/LogicianTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Logician-iOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diephouse.matt.LogicianTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -503,7 +503,7 @@
 				INFOPLIST_FILE = Tests/LogicianTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "jp.335g.Logician-iOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = com.diephouse.matt.LogicianTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 3.0;
@@ -686,6 +686,7 @@
 				84F407291E29B9EC00ADD734 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		84F4072A1E29B9EC00ADD734 /* Build configuration list for PBXNativeTarget "Logician-iOSTests" */ = {
 			isa = XCConfigurationList;
@@ -694,6 +695,7 @@
 				84F4072C1E29B9EC00ADD734 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BE3D36171D7880BC00729A4C /* Build configuration list for PBXProject "Logician" */ = {
 			isa = XCConfigurationList;
