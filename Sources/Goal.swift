@@ -36,17 +36,17 @@ private func goal(_ constraint: @escaping Constraint) -> Goal {
 // MARK: - Equality
 
 /// A goal that's satisfied when a variable equals a value.
-public func == <V: VariableProtocol>(variable: V, value: V.Value) -> Goal where V.Value: Equatable {
+public func == <V: VariableProtocol>(variable: V, value: V.Value) -> Goal {
     return goal { try $0.unifying(variable.variable, value) }
 }
 
 /// A goal that's satisfied when a value equals a variable.
-public func == <V: VariableProtocol>(value: V.Value, variable: V) -> Goal where V.Value: Equatable {
+public func == <V: VariableProtocol>(value: V.Value, variable: V) -> Goal {
     return variable == value
 }
 
 /// A goal that's satisfied when two variables are equal.
-public func == <V: VariableProtocol>(lhs: V, rhs: V) -> Goal where V.Value: Equatable {
+public func == <V: VariableProtocol>(lhs: V, rhs: V) -> Goal {
     return goal { try $0.unifying(lhs.variable, rhs.variable) }
 }
 
@@ -65,7 +65,7 @@ public func == <P: PropertyProtocol>(lhs: P, rhs: P) -> Goal where P.Value: Equa
     return goal(equal([ lhs, rhs ]))
 }
 
-extension Variable where Value: Equatable {
+extension Variable {
     /// A goal that's satisfied when a variable is one of a number of values.
     public func `in`<C: Collection>(_ values: C) -> Goal where C.Iterator.Element == Value {
         return any(values.map { self == $0 })
@@ -144,7 +144,7 @@ public func all(_ goals: [Goal]) -> Goal {
 }
 
 /// A goal that succeeds when all of the subgoals succeed.
-public func all(_ goals: @escaping Goal...) -> Goal {
+public func all(_ goals: Goal...) -> Goal {
     return all(goals)
 }
 
@@ -168,7 +168,7 @@ public func any(_ goals: [Goal]) -> Goal {
 /// A goal that succeeds when any of the subgoals succeeds.
 ///
 /// This can multiple alternative solutions.
-public func any(_ goals: @escaping Goal...) -> Goal {
+public func any(_ goals: Goal...) -> Goal {
     return any(goals)
 }
 

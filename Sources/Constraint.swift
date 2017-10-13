@@ -33,7 +33,7 @@ internal func equal<P: PropertyProtocol>(_ properties: [P], value: P.Value? = ni
 
 /// Create an inequality constraint between some properties and, optionally, a
 /// value.
-internal func unequal<P: PropertyProtocol>(_ properties: [P], values: Set<P.Value> = []) -> Constraint where P.Value: Hashable {
+internal func unequal<P: PropertyProtocol>(_ properties: [P], values: Set<P.Value> = []) -> Constraint {
     let properties = properties.map { $0.property }
     return { state in
         var values = values
