@@ -8,10 +8,7 @@
 
 import Foundation
 
-public protocol VariableProtocol: PropertyProtocol {
-    /// The type of value that the variable represents.
-    associatedtype Value: Equatable
-    
+public protocol VariableProtocol: PropertyProtocol where Value: Equatable {
     /// Extracts the variable from the receiver.
     var variable: Variable<Value> { get }
 }
