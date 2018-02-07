@@ -62,7 +62,7 @@ The following are good resources for learning more about logic programming:
 - [The Reasoned Schemer](https://www.amazon.com/gp/product/0262562146/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0262562146&linkCode=as2&tag=mattdiephouse-20&linkId=40c4bb4569bbbfdf6c3a99f4e66490f4
 ) by Daniel P. Friedman, William E. Byrd and Oleg Kiselyov
 
-    An unorthodox book, in the style of _The Little Schemer_, that has pages of exercises that demonstrate how a kaaren-style logic programming works.
+    An unorthodox book, in the style of _The Little Schemer_, that has pages of exercises that demonstrate how a kanren-style logic programming works.
 
 - [Constraint Processing](https://www.amazon.com/gp/product/1558608907/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1558608907&linkCode=as2&tag=mattdiephouse-20&linkId=d518f0b1d4ccb6a9a8c6d772cec8c8ec) by Rina Dechter
 
