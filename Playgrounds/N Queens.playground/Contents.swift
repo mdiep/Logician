@@ -16,7 +16,7 @@ struct Position: CustomStringConvertible, Equatable {
 	}
 	
 	var description: String {
-		let characters = "abcdefghijklmnopqrstuvwxyz".characters
+		let characters = "abcdefghijklmnopqrstuvwxyz"
 		return "\(characters[characters.index(characters.startIndex, offsetBy: column - 1)])\(row)"
 	}
 	
