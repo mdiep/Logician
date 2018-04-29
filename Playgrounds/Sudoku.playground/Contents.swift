@@ -45,6 +45,14 @@ extension Array {
     }
 }
 
+struct Solution {
+	let grid: [Int]
+	
+	init(_ grid: [Int]) {
+		self.grid = grid
+	}
+}
+
 let solution = solve
     { (variables: inout [Variable<Int>]) in
         for _ in 1...9*9 {
@@ -65,13 +73,7 @@ if let solution = solution {
     print("Couldn't solve it 😞")
 }
 
-struct Solution: CustomStringConvertible {
-    let grid: [Int]
-    
-    init(_ grid: [Int]) {
-        self.grid = grid
-    }
-    
+extension Solution: CustomStringConvertible {
     var description: String {
         var value = ""
         var index = 0
