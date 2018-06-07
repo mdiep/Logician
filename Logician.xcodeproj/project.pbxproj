@@ -204,9 +204,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84F407271E29B9EC00ADD734 /* Build configuration list for PBXNativeTarget "Logician-iOS" */;
 			buildPhases = (
+				84F407131E29B9EC00ADD734 /* Headers */,
 				84F407111E29B9EC00ADD734 /* Sources */,
 				84F407121E29B9EC00ADD734 /* Frameworks */,
-				84F407131E29B9EC00ADD734 /* Headers */,
 				84F407141E29B9EC00ADD734 /* Resources */,
 			);
 			buildRules = (
@@ -240,9 +240,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BE3D36311D7880BD00729A4C /* Build configuration list for PBXNativeTarget "Logician-macOS" */;
 			buildPhases = (
+				BE3D361A1D7880BC00729A4C /* Headers */,
 				BE3D36181D7880BC00729A4C /* Sources */,
 				BE3D36191D7880BC00729A4C /* Frameworks */,
-				BE3D361A1D7880BC00729A4C /* Headers */,
 				BE3D361B1D7880BC00729A4C /* Resources */,
 			);
 			buildRules = (
