@@ -66,6 +66,6 @@ The following are good resources for learning more about logic programming:
 
 - [Constraint Processing](https://www.amazon.com/gp/product/1558608907/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=1558608907&linkCode=as2&tag=mattdiephouse-20&linkId=d518f0b1d4ccb6a9a8c6d772cec8c8ec) by Rina Dechter
 
-    An in-depth look at constraints, algorithms, and optimizations. This book explains all you need to know to right a complex solver.
+    An in-depth look at constraints, algorithms, and optimizations. This book explains all you need to know to write a complex solver.
 
 
