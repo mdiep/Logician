@@ -1,5 +1,6 @@
 # Logician
 [![SPM Compatible](https://img.shields.io/badge/SPM-compatible-4BC51D.svg?style=flat)](https://swift.org/package-manager/)
+
 Logic programming in Swift
 
 ## Logic Programming
