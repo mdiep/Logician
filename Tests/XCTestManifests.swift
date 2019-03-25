@@ -94,6 +94,7 @@ extension StateTests {
 
 extension VariableTests {
     static let __allTests = [
+        ("testAppendOperator", testAppendOperator),
         ("testIdentity", testIdentity),
     ]
 }

@@ -19,6 +19,12 @@ class VariableTests: XCTestCase {
         XCTAssertFalse(var2 == var3)
     }
 
+    func testAppendOperator() {
+        var list = [Variable<Int>]()
+        let variable = Variable() >> list
+        XCTAssertTrue(list.first! == variable)
+    }
+
     static var allTests: [(String, (VariableTests) -> () throws -> Void)] {
         return [
             ("testIdentity", testIdentity),

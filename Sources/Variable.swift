@@ -120,6 +120,15 @@ public struct Variable<Value: Equatable> {
     }
 }
 
+prefix operator >>
+
+extension Variable {
+    static func >>(_ variable: Variable, _ list: inout [Variable]) -> Variable {
+        list.append(variable)
+        return variable
+    }
+}
+
 extension Variable: VariableProtocol {
     public var property: Property<Value> {
         return Property(self, { $0 })
