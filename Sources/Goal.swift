@@ -10,8 +10,8 @@ import Foundation
 
 /// A desired logicial statement.
 ///
-/// Represented as a function that takes a produces a generator of states that
-/// are compatible with the goal.
+/// Represented as a function that takes a state and produces a generator of
+/// states that are compatible with the goal.
 public typealias Goal = (State) -> Generator<State>
 
 /// Create a `Goal` with a block that tries to transform a state. If the block
