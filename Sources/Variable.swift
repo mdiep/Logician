@@ -160,11 +160,12 @@ internal class AnyVariable: Hashable {
         self.equal = { ($0 as! Value) == ($1 as! Value) }
     }
     
-    var hashValue: Int {
+    func hash(into hasher: inout Hasher) {
         if let basis = self.basis {
-            return basis.source.hashValue ^ basis.key.hashValue
+            hasher.combine(basis.source.hashValue)
+            hasher.combine(basis.key.hashValue)
         } else {
-            return ObjectIdentifier(self).hashValue
+            hasher.combine(ObjectIdentifier(self).hashValue)
         }
     }
     

@@ -73,8 +73,8 @@ internal struct AnyProperty: Hashable {
         self.transform = transform
     }
     
-    var hashValue: Int {
-        return variable.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(variable.hashValue)
     }
     
     static func ==(lhs: AnyProperty, rhs: AnyProperty) -> Bool {

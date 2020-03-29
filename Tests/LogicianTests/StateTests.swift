@@ -19,7 +19,7 @@ class StateTests: XCTestCase {
     func testValueOfProperty() {
         var state = State()
         let x = Variable<String>()
-        let y = x.map { $0.characters.count }
+        let y = x.map { $0.count }
         
         XCTAssertNil(state.value(of: y))
         
