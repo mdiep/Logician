@@ -163,7 +163,7 @@ internal class AnyVariable: Hashable {
     func hash(into hasher: inout Hasher) {
         if let basis = self.basis {
             hasher.combine(basis.source)
-            hasher.combine(basis.key.hashValue)
+            hasher.combine(basis.key)
         } else {
             hasher.combine(ObjectIdentifier(self).hashValue)
         }
