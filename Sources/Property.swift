@@ -74,7 +74,7 @@ internal struct AnyProperty: Hashable {
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(variable.hashValue)
+        hasher.combine(variable)
     }
     
     static func ==(lhs: AnyProperty, rhs: AnyProperty) -> Bool {
