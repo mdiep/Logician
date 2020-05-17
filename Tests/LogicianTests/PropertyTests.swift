@@ -11,16 +11,16 @@ import XCTest
 
 class PropertyTests: XCTestCase {
     func testIdentity() {
-        let length1 = Variable<String>().map { $0.characters.count }
+        let length1 = Variable<String>().map { $0.count }
         let length2 = length1
-        let length3 = Variable<String>().map { $0.characters.count }
+        let length3 = Variable<String>().map { $0.count }
         XCTAssertTrue(length1 == length2)
         XCTAssertFalse(length1 == length3)
         XCTAssertFalse(length2 == length3)
     }
     
     func testTypeErasure() {
-        let property = Variable<String>().map { $0.characters.count }
+        let property = Variable<String>().map { $0.count }
         XCTAssertTrue(property.erased == property)
         XCTAssertEqual(property.erased, property.erased)
     }

@@ -25,7 +25,7 @@ class SolveTests: XCTestCase {
     
     func testSolveWithProperty() {
         let strings = solve { (x: Variable<String>) in
-            return x.map { $0.characters.count } == 3
+            return x.map { $0.count } == 3
                 && any(x == "cat", x == "dog", x == "bird", x == "mouse")
                 && x != "cat"
         }
